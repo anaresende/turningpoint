@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "dotenv": "^10",
     "cookie-parser": "^1",
     "debug": "^2",
     "express": "^4",
