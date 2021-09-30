@@ -17,9 +17,6 @@ app.use(express.static(path.join(__dirname, 'client', "build")));
 
 // routes
 
-const apiRouter = require("./routes/api.routes");
-app.use("/api", apiRouter);
-
 const userRouter = require("./routes/user.routes");
 app.use("/user", userRouter);
 
