@@ -20,6 +20,8 @@ app.use(express.static(path.join(__dirname, 'client', "build")));
 const userRouter = require("./routes/user.routes");
 app.use("/user", userRouter);
 
+const authRouter = require("./routes/auth.routes");
+app.use("/auth", authRouter);
 
 
 
