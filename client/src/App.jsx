@@ -5,6 +5,7 @@ import { Switch, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import ErrorPage from "./pages/ErrorPage";
+import MyGoals from "./pages/MyGoals";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -30,6 +31,11 @@ function App() {
         <Route exact path="/contacts" component={() => <h1>Contactos</h1>} />
         <Route
           exact
+          path="/confirm-email"
+          component={() => <h1>Confirme o seu email e valide o seu registo</h1>}
+        />
+        <Route
+          exact
           path="/competition"
           component={() => <h1>Grupo de competição</h1>}
         />
@@ -45,11 +51,7 @@ function App() {
           path="/user/my-invoices"
           component={() => <h1>my invoices</h1>}
         />
-        <PrivateRoute
-          exact
-          path="/user/my-goals"
-          component={() => <h1>my goals</h1>}
-        />
+        <PrivateRoute exact path="/user/my-goals" component={MyGoals} />
         <PrivateRoute
           exact
           path="/user/my-practices"
