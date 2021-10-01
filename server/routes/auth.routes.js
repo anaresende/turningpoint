@@ -11,7 +11,6 @@ const saltRounds = 10;
 router.post("/signup", (req, res, next) => {
   const { email, password, username, vat } = req.body;
 
-  console.log("tentativa sign up", req.body);
   if (email === "" || password === "" || username === "" || vat === "") {
     res.status(400).json({
       message:
@@ -122,7 +121,7 @@ router.post("/login", (req, res, next) => {
 router.get("/verify", isAuthenticated, (req, res, next) => {
   // If JWT token is valid the payload gets decoded by the
   // isAuthenticated middleware and made available on `req.payload`
-  console.log(`req.payload`, req.payload);
+  console.log(`/verify req.payload`, req.payload);
 
   // Send back the object with user data
   // previously set as the token payload
