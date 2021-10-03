@@ -18,6 +18,15 @@ const userSchema = new Schema({
     required: true,
   },
   avatarUrl: String,
+  status: {
+    type: String,
+    enum: ["Pending", "Active"],
+    default: "Pending",
+  },
+  confirmationCode: {
+    type: String,
+    unique: true,
+  },
 });
 
 const User = model("User", userSchema);

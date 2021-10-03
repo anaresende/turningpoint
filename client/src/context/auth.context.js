@@ -50,13 +50,19 @@ function AuthProviderWrapper(props) {
     setUser(null);
   };
 
+  const verifyUser = (code) => {
+    return axios.get(`${API_URL}/auth/confirm/${code}`).then((response) => {
+      return response.data;
+    });
+  };
+
   useEffect(() => {
     verifyStoredToken();
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, isLoading, user, logInUser, logOutUser }}
+      value={{ isLoggedIn, isLoading, user, logInUser, logOutUser, verifyUser }}
     >
       {props.children}
     </AuthContext.Provider>

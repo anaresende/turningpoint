@@ -2,6 +2,8 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/usermodel");
+const MoloniApi = require("../api/moloni");
+const nodemailer = require("../config/nodemailer.config");
 
 const { isAuthenticated } = require("./../middleware/jwt.middleware.js");
 
@@ -43,7 +45,13 @@ router.post("/signup", (req, res, next) => {
         return;
       }
 
-      // If email is unique, proceed to hash the password
+      // check if User is in Moloni
+      // MoloniApi.getByVat(vat).then((response) => {
+      //   console.log(response);
+      //   res.status(200).json(response.data);
+      // });
+
+      // If VAT is unique, proceed to hash the password
       const salt = bcrypt.genSaltSync(saltRounds);
       const hashedPassword = bcrypt.hashSync(password, salt);
 
@@ -60,12 +68,52 @@ router.post("/signup", (req, res, next) => {
       // Create a new object that doesn't expose the password
       const user = { email, username, _id };
 
-      // Send a json response containing the user object
+      const characters =
+        "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      let token = "";
+
+      for (let i = 0; i < 25; i++) {
+        token += characters[Math.floor(Math.random() * characters.length)];
+      }
+
+      createdUser.confirmationCode = token;
+      console.log("criado mas não guardado");
+      createdUser.save((err) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+        console.log("gravado mas não enviado");
+        // res.send({
+        //   message: "User was registered successfully! Please check your email",
+        // });
+
+        console.log(
+          "========chegou aqui",
+          user.username,
+          user.email,
+          createdUser.confirmationCode
+        );
+
+        nodemailer.sendConfirmationEmail(
+          user.username,
+          user.email,
+          createdUser.confirmationCode
+        );
+
+        console.log("are you sending?");
+
+        return;
+      });
+
       res.status(201).json({ user: user });
+      return;
+      // Send a json response containing the user object
     })
     .catch((err) => {
       console.log(err);
       res.status(500).json({ message: "Internal Server Error" });
+      return;
     });
 });
 
@@ -88,6 +136,14 @@ router.post("/login", (req, res, next) => {
         // If the user is not found, send an error response
         res.status(401).json({ message: "Utilizador não encontrado." });
         return;
+      }
+
+      console.log("encontrou o user", foundUser);
+
+      if (foundUser.status != "Active") {
+        return res.status(401).json({
+          message: "Pending Account. Please Verify Your Email!",
+        });
       }
 
       // Compare the provided password with the one saved in the database
@@ -126,6 +182,32 @@ router.get("/verify", isAuthenticated, (req, res, next) => {
   // Send back the object with user data
   // previously set as the token payload
   res.status(200).json(req.payload);
+});
+
+router.get("/confirm/:confirmationCode", (req, res, next) => {
+  console.log("entrou no processo confirm", req.params.confirmationCode);
+  User.findOne({
+    confirmationCode: req.params.confirmationCode,
+  })
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send({ message: "User Not found." });
+      }
+
+      user.status = "Active";
+      user.save((err) => {
+        console.log("foi saved", err);
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+        res
+          .status(200)
+          .json({ message: "Autenticação concluída! Por favor faça login." });
+      });
+    })
+    .catch((e) => console.log("error", e));
+  return;
 });
 
 module.exports = router;

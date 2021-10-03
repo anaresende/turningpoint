@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import ErrorPage from "./pages/ErrorPage";
 import MyGoals from "./pages/MyGoals";
+import Welcome from "./pages/Welcome";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -31,14 +32,14 @@ function App() {
         <Route exact path="/contacts" component={() => <h1>Contactos</h1>} />
         <Route
           exact
-          path="/confirm-email"
-          component={() => <h1>Confirme o seu email e valide o seu registo</h1>}
-        />
-        <Route
-          exact
           path="/competition"
           component={() => <h1>Grupo de competição</h1>}
         />
+        <Route
+          path="/confirm-email"
+          component={() => <h1>Por favor confirme o seu email</h1>}
+        />
+        <Route path="/auth/confirm/:confirmationCode" component={Welcome} />
 
         {/* 👇 UPDATE THE EXISTING ROUTES 👇  */}
         <PrivateRoute

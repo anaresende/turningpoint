@@ -21,7 +21,7 @@ function SignupForm(props) {
   const handleVat = (e) => setVat(e.target.value);
   const handleUsername = (e) => setUsername(e.target.value);
 
-  const handleLoginSubmit = (e) => {
+  const handleSignupSubmit = (e) => {
     e.preventDefault();
     const requestBody = { vat, username, email, password };
 
@@ -45,7 +45,7 @@ function SignupForm(props) {
         Regista-te!
       </h1>
 
-      <form onSubmit={handleLoginSubmit}>
+      <form onSubmit={handleSignupSubmit}>
         <label>Número de Contribuinte:</label>
         <input type="number" name="vat" value={vat} onChange={handleVat} />
         <br />
