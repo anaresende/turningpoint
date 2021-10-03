@@ -33,8 +33,9 @@ function SignupForm(props) {
       .post(`${API_URL}/auth/signup`, requestBody)
       .then((response) => history.push("/confirm-email"))
       .catch((error) => {
+        console.log("cenas", error);
         // const errorDescription = error.response.data.message;
-        setErrorMessage(error);
+        setErrorMessage("error");
       });
   };
 
@@ -47,24 +48,40 @@ function SignupForm(props) {
 
       <form onSubmit={handleSignupSubmit}>
         <label>Número de Contribuinte:</label>
-        <input type="number" name="vat" value={vat} onChange={handleVat} />
+        <input
+          type="text"
+          name="vat"
+          value={vat}
+          minLength="9"
+          maxLength="9"
+          required
+          onChange={handleVat}
+        />
         <br />
         <label>Username:</label>
         <input
           type="text"
           name="username"
           value={username}
+          required
           onChange={handleUsername}
         />
         <br />
         <label>Email:</label>
-        <input type="text" name="email" value={email} onChange={handleEmail} />
+        <input
+          type="text"
+          name="email"
+          value={email}
+          required
+          onChange={handleEmail}
+        />
         <br />
         <label>Password:</label>
         <input
           type="password"
           name="password"
           value={password}
+          required
           onChange={handlePassword}
         />
 

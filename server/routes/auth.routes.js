@@ -11,6 +11,7 @@ const router = express.Router();
 const saltRounds = 10;
 
 router.post("/signup", (req, res, next) => {
+  console.log("entrou sign up");
   const { email, password, username, vat } = req.body;
 
   if (email === "" || password === "" || username === "" || vat === "") {
@@ -31,6 +32,7 @@ router.post("/signup", (req, res, next) => {
 
   const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
   if (!passwordRegex.test(password)) {
+    console.log("arroz");
     res.status(400).json({
       message:
         "A password tem de ter no mínimo 6 caracteres e conter maíusculas e minusculas. ",
@@ -46,21 +48,39 @@ router.post("/signup", (req, res, next) => {
       }
 
       // check if User is in Moloni
-      // MoloniApi.getByVat(vat).then((response) => {
-      //   console.log(response);
-      //   res.status(200).json(response.data);
-      // });
+      return MoloniApi.getByVat(vat).then((response) => {
+        console.log("entrou na api");
+        if (response.data.length === 0) {
+          console.log({
+            message: "O utilizador não está registado na escola.",
+          });
+          res
+            .status(400)
+            .json({ message: "O utilizador não está registado na escola." });
+          return;
+        }
+        const moloniUser = response.data[0];
+        if (email !== moloniUser.email && email !== moloniUser.contact_email) {
+          console.log({
+            message: "Este email não se encontra registado na escola.",
+          });
+          res.status(400).json({
+            message: "Este email não se encontra registado na escola.",
+          });
+          return;
+        }
+        console.log("moloni user", moloniUser);
 
-      // If VAT is unique, proceed to hash the password
-      const salt = bcrypt.genSaltSync(saltRounds);
-      const hashedPassword = bcrypt.hashSync(password, salt);
+        // If VAT is unique, proceed to hash the password
+        const salt = bcrypt.genSaltSync(saltRounds);
+        const hashedPassword = bcrypt.hashSync(password, salt);
 
-      // Create the new user in the database
-      // We return a pending promise, which allows us to chain another `then`
-      return User.create({ email, password: hashedPassword, username, vat });
+        // Create the new user in the database
+        // We return a pending promise, which allows us to chain another `then`
+        return User.create({ email, password: hashedPassword, username, vat });
+      });
     })
     .then((createdUser) => {
-      console.log("createdUser", createdUser);
       // Deconstruct the newly created user object to omit the password
       // We should never expose passwords publicly
       const { email, username, _id } = createdUser;
@@ -77,31 +97,21 @@ router.post("/signup", (req, res, next) => {
       }
 
       createdUser.confirmationCode = token;
-      console.log("criado mas não guardado");
+
       createdUser.save((err) => {
         if (err) {
           res.status(500).send({ message: err });
           return;
         }
-        console.log("gravado mas não enviado");
         // res.send({
         //   message: "User was registered successfully! Please check your email",
         // });
-
-        console.log(
-          "========chegou aqui",
-          user.username,
-          user.email,
-          createdUser.confirmationCode
-        );
 
         nodemailer.sendConfirmationEmail(
           user.username,
           user.email,
           createdUser.confirmationCode
         );
-
-        console.log("are you sending?");
 
         return;
       });

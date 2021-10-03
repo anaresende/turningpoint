@@ -14,11 +14,10 @@ const transport = nodemailer.createTransport({
   port: 465,
   secure: true,
   logger: true,
-  debug: true,
+  //debug: true,
 });
 
 module.exports.sendConfirmationEmail = (username, email, confirmationCode) => {
-  console.log("Check", transport, user, email, username, process.env.SITE_URL);
   return transport.sendMail(
     {
       from: user,

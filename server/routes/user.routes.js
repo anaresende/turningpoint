@@ -39,7 +39,7 @@ router.get("/get-customer/:vat", (req, res, next) => {
 
   MoloniApi.getByVat(vat).then((response) => {
     console.log(response);
-    res.status(200).json(response.data);
+    res.status(400).json(response.data);
   });
 });
 
