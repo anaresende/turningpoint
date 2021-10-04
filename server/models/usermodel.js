@@ -17,6 +17,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  customer_id: {
+    type: Number,
+    required: true,
+  },
   avatarUrl: String,
   status: {
     type: String,

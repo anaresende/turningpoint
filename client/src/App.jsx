@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import ErrorPage from "./pages/ErrorPage";
 import MyGoals from "./pages/MyGoals";
 import Welcome from "./pages/Welcome";
+import Profile from "./pages/Profile";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -42,11 +43,7 @@ function App() {
         <Route path="/auth/confirm/:confirmationCode" component={Welcome} />
 
         {/* 👇 UPDATE THE EXISTING ROUTES 👇  */}
-        <PrivateRoute
-          exact
-          path="/user"
-          component={() => <h1>user profile</h1>}
-        />
+        <PrivateRoute exact path="/user" component={Profile} />
         <PrivateRoute
           exact
           path="/user/my-invoices"

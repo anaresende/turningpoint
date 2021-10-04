@@ -12,6 +12,7 @@ function Navbar() {
       <Link to="/">Home</Link>
       {isLoggedIn ? (
         <>
+          <Link to="/user">My Profile</Link>
           <Link to="/user/my-goals">My Goals</Link>
           <button onClick={logOutUser}>Logout</button>
           <span>{user.name}</span>

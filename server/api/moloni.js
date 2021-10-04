@@ -32,6 +32,35 @@ class MoloniApi {
     return customerDetail;
   };
 
+  getInvoices = (customer_id) => {
+    console.log("get invoices", customer_id);
+    const data = {
+      company_id: 89905,
+      customer_id: customer_id,
+    };
+
+    const invoices = this.api.request({
+      url: "/documents/getAll/",
+      data: qs.stringify(data),
+      method: "POST",
+    });
+    return invoices;
+  };
+
+  getPDFLink = (document_id) => {
+    const data = {
+      company_id: 89905,
+      document_id: document_id,
+    };
+
+    const pdfLink = this.api.request({
+      url: "/documents/getPDFLink/",
+      data: qs.stringify(data),
+      method: "POST",
+    });
+    return pdfLink;
+  };
+
   getCountClients = () => {
     const data = { company_id: 89905 };
 

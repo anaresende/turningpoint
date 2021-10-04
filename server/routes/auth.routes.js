@@ -77,16 +77,22 @@ router.post("/signup", (req, res, next) => {
 
         // Create the new user in the database
         // We return a pending promise, which allows us to chain another `then`
-        return User.create({ email, password: hashedPassword, username, vat });
+        return User.create({
+          email,
+          password: hashedPassword,
+          username,
+          vat,
+          customer_id: moloniUser.customer_id,
+        });
       });
     })
     .then((createdUser) => {
       // Deconstruct the newly created user object to omit the password
       // We should never expose passwords publicly
-      const { email, username, _id } = createdUser;
+      const { email, username, _id, customer_id } = createdUser;
 
       // Create a new object that doesn't expose the password
-      const user = { email, username, _id };
+      const user = { email, username, _id, customer_id };
 
       const characters =
         "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -161,10 +167,10 @@ router.post("/login", (req, res, next) => {
 
       if (passwordCorrect) {
         // Deconstruct the user object to omit the password
-        const { _id, username } = foundUser;
+        const { _id, username, customer_id, email } = foundUser;
 
         // Create an object that will be set as the token payload
-        const payload = { _id, username };
+        const payload = { _id, username, customer_id, email };
 
         // Create and sign the token
         const authToken = jwt.sign(payload, process.env.JWT_SECRET, {
