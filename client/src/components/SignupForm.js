@@ -1,30 +1,33 @@
-import { useState, useContext } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "./../context/auth.context";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 function SignupForm(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [vat, setVat] = useState("");
-  const [username, setUsername] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
+  const [classes, setClasses] = useState([]);
   const history = useHistory();
-
-  const { logInUser } = useContext(AuthContext);
-
-  const handleEmail = (e) => setEmail(e.target.value);
-  const handlePassword = (e) => setPassword(e.target.value);
-  const handleVat = (e) => setVat(e.target.value);
-  const handleUsername = (e) => setUsername(e.target.value);
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
-    const requestBody = { vat, username, email, password };
+    const form = e.currentTarget;
+    const danceClass = Object.keys(classes)
+      .map((style) => {
+        return form[style].value;
+      })
+      .filter(Boolean);
 
+    const requestBody = {
+      vat: form.vat.value,
+      username: form.username.value,
+      email: form.email.value,
+      password: form.password.value,
+      danceClass: danceClass,
+    };
+
+    console.log(requestBody);
     // Make an axios request to the API
     // If POST request is successful redirect to login page
     // If the request resolves with an error, set the error message in the state
@@ -37,6 +40,17 @@ function SignupForm(props) {
       });
   };
 
+  useEffect(() => {
+    axios.get(`${API_URL}/user/classes`).then((response) => {
+      const classesByStyle = response.data.reduce((acc, current) => {
+        acc[current.style] = [...(acc[current.style] || []), current];
+        return acc;
+      }, []);
+
+      setClasses(classesByStyle);
+    });
+  }, []);
+
   return (
     <div className="SignupForm">
       <h1>
@@ -46,43 +60,38 @@ function SignupForm(props) {
 
       <form onSubmit={handleSignupSubmit}>
         <label>Número de Contribuinte:</label>
-        <input
-          type="text"
-          name="vat"
-          value={vat}
-          minLength="9"
-          maxLength="9"
-          required
-          onChange={handleVat}
-        />
+        <input type="text" name="vat" minLength="9" maxLength="9" required />
         <br />
         <label>Username:</label>
-        <input
-          type="text"
-          name="username"
-          value={username}
-          required
-          onChange={handleUsername}
-        />
+        <input type="text" name="username" required />
         <br />
         <label>Email:</label>
-        <input
-          type="text"
-          name="email"
-          value={email}
-          required
-          onChange={handleEmail}
-        />
+        <input type="text" name="email" required />
         <br />
         <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          required
-          onChange={handlePassword}
-        />
+        <input type="password" name="password" required />
+        <br />
+        <label>Modalidades:</label>
+        {Object.keys(classes).map((style) => {
+          console.log(classes[style]);
+          return (
+            <div key={style}>
+              <label htmlFor={`${style}-select`}>{style}</label>
+              <select name={style} id={`${style}-select`} defaultValue="">
+                <option value="">-- escolhe aqui --</option>
 
+                {Object.keys(classes[style]).map((index) => {
+                  const classLevel = classes[style][index];
+                  return (
+                    <option key={classLevel._id} value={classLevel._id}>
+                      {classLevel.level}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          );
+        })}
         <button type="submit">Regista-te!</button>
       </form>
       {errorMessage && <p className="error-message">{errorMessage}</p>}

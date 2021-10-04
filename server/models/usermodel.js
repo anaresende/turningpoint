@@ -19,7 +19,6 @@ const userSchema = new Schema({
   },
   customer_id: {
     type: Number,
-    required: true,
   },
   avatarUrl: String,
   status: {
@@ -31,6 +30,12 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  roles: {
+    type: String,
+    enum: ["admin", "user"],
+    default: "user",
+  },
+  danceClass: [{ type: Schema.Types.ObjectId, ref: "DanceClass" }],
 });
 
 const User = model("User", userSchema);

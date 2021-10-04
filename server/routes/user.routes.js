@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const MoloniApi = require("../api/moloni");
 const Goal = require("../models/goalmodel");
+const DanceClass = require("../models/danceclassmodel");
 
 const { isAuthenticated } = require("./../middleware/jwt.middleware.js");
 
@@ -17,11 +18,9 @@ router.get("/my-goals", isAuthenticated, (req, res) => {
 
 router.get("/my-invoices", isAuthenticated, (req, res) => {
   const user = req.payload;
-  console.log("my-invoices", user);
 
   MoloniApi.getInvoices(user.customer_id).then((response) => {
     const documents = response.data;
-    console.log("documents", documents);
 
     const documentsInfo = documents.map((document) => {
       return {
@@ -140,6 +139,23 @@ router.get("/count", (req, res, next) => {
     res.status(200).json(response.data);
     // res.json(user)
   });
+});
+
+// just to populate my database with some dance style classes
+router.get("/add-my-class", (req, res) => {
+  DanceClass.create({ style: "ballet", level: "grade 5" })
+    .then((danceClass) => {
+      res.status(201).json({ danceClass });
+    })
+    .catch((err) => res.status(500).json({ message: "Internal Server Error" }));
+});
+
+router.get("/classes", (req, res) => {
+  DanceClass.find()
+    .then((classes) => {
+      res.status(201).json(classes);
+    })
+    .catch((err) => res.status(500).json({ message: "Internal Server Error" }));
 });
 
 module.exports = router;

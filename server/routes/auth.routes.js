@@ -11,7 +11,7 @@ const router = express.Router();
 const saltRounds = 10;
 
 router.post("/signup", (req, res, next) => {
-  const { email, password, username, vat } = req.body;
+  const { email, password, username, vat, danceClass } = req.body;
 
   if (email === "" || password === "" || username === "" || vat === "") {
     res.status(500).json({
@@ -55,6 +55,7 @@ router.post("/signup", (req, res, next) => {
           return;
         }
         const moloniUser = response.data[0];
+
         if (email !== moloniUser.email && email !== moloniUser.contact_email) {
           res.status(400).json({
             message: "Este email não se encontra registado na escola.",
@@ -83,6 +84,7 @@ router.post("/signup", (req, res, next) => {
           password: hashedPassword,
           username,
           vat,
+          danceClass,
           customer_id: moloniUser.customer_id,
           confirmationCode: emailToken,
         }).then((newUser) => {
