@@ -4,14 +4,17 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/usermodel");
 const MoloniApi = require("../api/moloni");
 const sendConfirmationEmail = require("../config/nodemailer.config");
+const fileUploader = require("../config/cloudinary.config");
 
 const { isAuthenticated } = require("./../middleware/jwt.middleware.js");
 
 const router = express.Router();
 const saltRounds = 10;
 
-router.post("/signup", (req, res, next) => {
+router.post("/signup", fileUploader.single("avatarUrl"), (req, res, next) => {
   const { email, password, username, vat, danceClass } = req.body;
+  const avatarUrl = req.file?.path;
+  console.log("------------------------------------", avatarUrl);
 
   if (email === "" || password === "" || username === "" || vat === "") {
     res.status(500).json({
@@ -85,6 +88,7 @@ router.post("/signup", (req, res, next) => {
           username,
           vat,
           danceClass,
+          avatarUrl,
           customer_id: moloniUser.customer_id,
           confirmationCode: emailToken,
         }).then((newUser) => {
@@ -136,10 +140,10 @@ router.post("/login", (req, res, next) => {
 
       if (passwordCorrect) {
         // Deconstruct the user object to omit the password
-        const { _id, username, customer_id, email } = foundUser;
+        const { _id, username, customer_id, email, avatarUrl } = foundUser;
 
         // Create an object that will be set as the token payload
-        const payload = { _id, username, customer_id, email };
+        const payload = { _id, username, customer_id, email, avatarUrl };
 
         // Create and sign the token
         const authToken = jwt.sign(payload, process.env.JWT_SECRET, {

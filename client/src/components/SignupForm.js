@@ -28,11 +28,20 @@ function SignupForm(props) {
     };
 
     console.log(requestBody);
+    let formData = new FormData();
+    formData.append("avatarUrl", form.avatarUrl.files[0]);
+    formData.append("vat", form.vat.value);
+    formData.append("username", form.username.value);
+    formData.append("email", form.email.value);
+    formData.append("password", form.password.value);
+    formData.append("danceClass", danceClass);
+
+    console.log(formData);
     // Make an axios request to the API
     // If POST request is successful redirect to login page
     // If the request resolves with an error, set the error message in the state
     axios
-      .post(`${API_URL}/auth/signup`, requestBody)
+      .post(`${API_URL}/auth/signup`, formData)
       .then((response) => history.push("/confirm-email"))
       .catch((error) => {
         const errorDescription = error.response.data.message;
@@ -59,6 +68,9 @@ function SignupForm(props) {
       </h1>
 
       <form onSubmit={handleSignupSubmit}>
+        <label>Foto:</label>
+        <input type="file" name="avatarUrl" id="avatarUrl" />
+        <br />
         <label>Número de Contribuinte:</label>
         <input type="text" name="vat" minLength="9" maxLength="9" required />
         <br />
@@ -73,15 +85,16 @@ function SignupForm(props) {
         <br />
         <label>Modalidades:</label>
         {Object.keys(classes).map((style) => {
-          console.log(classes[style]);
+          const styles = classes[style];
+
           return (
             <div key={style}>
               <label htmlFor={`${style}-select`}>{style}</label>
               <select name={style} id={`${style}-select`} defaultValue="">
                 <option value="">-- escolhe aqui --</option>
 
-                {Object.keys(classes[style]).map((index) => {
-                  const classLevel = classes[style][index];
+                {Object.keys(styles).map((index) => {
+                  const classLevel = styles[index];
                   return (
                     <option key={classLevel._id} value={classLevel._id}>
                       {classLevel.level}

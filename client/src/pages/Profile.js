@@ -38,10 +38,13 @@ const Profile = (props) => {
       });
   };
 
+  console.log(user);
+
   return (
     <div className="container">
       <h1>
         <strong>Hello {user.username}</strong>
+        <img src={user.avatarUrl} alt="" width="60px" />
       </h1>
       <h3>Faturas</h3>
       <div>
