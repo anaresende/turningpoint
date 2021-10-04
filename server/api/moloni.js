@@ -28,7 +28,7 @@ class MoloniApi {
       data: qs.stringify(data),
       method: "POST",
     });
-    console.log(customerDetail);
+
     return customerDetail;
   };
 

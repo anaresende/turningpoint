@@ -9,8 +9,9 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 function MyGoals() {
   const [goals, setGoals] = useState([]);
-  const { user, logInUser } = useContext(AuthContext);
   const [editMode, setEditMode] = useState(null);
+  const [addMode, setAddMode] = useState(null);
+  const { user, logInUser } = useContext(AuthContext);
   console.log(user, logInUser);
 
   const addNewGoal = (newGoal) => {
@@ -22,11 +23,12 @@ function MyGoals() {
         user: user._id,
       })
       .then((response) => {
-        setGoals(updatedGoals);
+        setAddMode(false);
       });
   };
 
   const handleEditGoal = (editGoal) => {
+    console.log("ediiiiiiit", editGoal);
     axios
       .post(
         `${API_URL}/user/edit-my-goal`,
@@ -77,7 +79,7 @@ function MyGoals() {
       .then((response) => {
         setGoals(response.data);
       });
-  }, [editMode]);
+  }, [editMode, addMode]);
 
   const handleActiveEdit = (goalValues) => {
     setEditMode(goalValues);
@@ -86,7 +88,7 @@ function MyGoals() {
   console.log(editMode);
   return (
     <div>
-      {!editMode && (
+      {!editMode && !addMode && (
         <div>
           <h1>Os meus objectivos</h1>
           {goals.map(({ title, plan, _id }) => {
@@ -101,10 +103,13 @@ function MyGoals() {
           })}
           <br />
           <br />
+          <button onClick={() => setAddMode(true)}>Criar Objetivo</button>
+          <br />
+          <br />
         </div>
       )}
-      {!editMode && <MyGoal addNewGoal={addNewGoal} />}
-      {editMode && (
+      {!editMode && addMode && <MyGoal addNewGoal={addNewGoal} />}
+      {editMode && !addMode && (
         <EditMyGoal
           values={editMode}
           handleEditGoal={handleEditGoal}

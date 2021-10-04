@@ -24,12 +24,12 @@ const userSchema = new Schema({
   avatarUrl: String,
   status: {
     type: String,
-    enum: ["Pending", "Active"],
+    enum: ["Pending", "Active", "Disabled"],
     default: "Pending",
   },
   confirmationCode: {
     type: String,
-    unique: true,
+    required: true,
   },
 });
 

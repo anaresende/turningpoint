@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/usermodel");
 const MoloniApi = require("../api/moloni");
-const nodemailer = require("../config/nodemailer.config");
+const sendConfirmationEmail = require("../config/nodemailer.config");
 
 const { isAuthenticated } = require("./../middleware/jwt.middleware.js");
 
@@ -11,59 +11,51 @@ const router = express.Router();
 const saltRounds = 10;
 
 router.post("/signup", (req, res, next) => {
-  console.log("entrou sign up");
   const { email, password, username, vat } = req.body;
 
   if (email === "" || password === "" || username === "" || vat === "") {
-    res.status(400).json({
+    res.status(500).json({
       message:
         "Por favor indique um endereço de email, uma password, um nome de ultilizador e o número de contribuinte.",
     });
-    return;
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   if (!emailRegex.test(email)) {
     res
-      .status(400)
+      .status(500)
       .json({ message: "Por favor indique um endereço de e-mail." });
-    return;
   }
 
   const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
   if (!passwordRegex.test(password)) {
-    console.log("arroz");
-    res.status(400).json({
+    res.status(500).json({
       message:
         "A password tem de ter no mínimo 6 caracteres e conter maíusculas e minusculas. ",
     });
-    return;
   }
 
-  User.findOne({ vat })
-    .then((foundUser) => {
-      if (foundUser) {
-        res.status(400).json({ message: "O utilizador já existe." });
-        return;
-      }
+  User.findOne({ vat }).then((foundUser) => {
+    if (foundUser) {
+      res.status(400).json({
+        message: "O utilizador já existe.",
+      });
+      return;
+    }
+    console.log("check in moloni");
 
-      // check if User is in Moloni
-      return MoloniApi.getByVat(vat).then((response) => {
-        console.log("entrou na api");
+    // check if User is in Moloni
+    MoloniApi.getByVat(vat)
+      .then((response) => {
+        console.log("foun in moloni?", response.data);
         if (response.data.length === 0) {
-          console.log({
+          res.status(400).json({
             message: "O utilizador não está registado na escola.",
           });
-          res
-            .status(400)
-            .json({ message: "O utilizador não está registado na escola." });
           return;
         }
         const moloniUser = response.data[0];
         if (email !== moloniUser.email && email !== moloniUser.contact_email) {
-          console.log({
-            message: "Este email não se encontra registado na escola.",
-          });
           res.status(400).json({
             message: "Este email não se encontra registado na escola.",
           });
@@ -75,62 +67,38 @@ router.post("/signup", (req, res, next) => {
         const salt = bcrypt.genSaltSync(saltRounds);
         const hashedPassword = bcrypt.hashSync(password, salt);
 
+        const characters =
+          "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let emailToken = "";
+
+        for (let i = 0; i < 25; i++) {
+          emailToken +=
+            characters[Math.floor(Math.random() * characters.length)];
+        }
+
         // Create the new user in the database
         // We return a pending promise, which allows us to chain another `then`
-        return User.create({
+        User.create({
           email,
           password: hashedPassword,
           username,
           vat,
           customer_id: moloniUser.customer_id,
+          confirmationCode: emailToken,
+        }).then((newUser) => {
+          sendConfirmationEmail(
+            newUser.username,
+            newUser.email,
+            newUser.confirmationCode
+          );
+          res.status(201).json({ user: newUser });
         });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).json({ message: "Internal Server Error" });
       });
-    })
-    .then((createdUser) => {
-      // Deconstruct the newly created user object to omit the password
-      // We should never expose passwords publicly
-      const { email, username, _id, customer_id } = createdUser;
-
-      // Create a new object that doesn't expose the password
-      const user = { email, username, _id, customer_id };
-
-      const characters =
-        "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-      let token = "";
-
-      for (let i = 0; i < 25; i++) {
-        token += characters[Math.floor(Math.random() * characters.length)];
-      }
-
-      createdUser.confirmationCode = token;
-
-      createdUser.save((err) => {
-        if (err) {
-          res.status(500).send({ message: err });
-          return;
-        }
-        // res.send({
-        //   message: "User was registered successfully! Please check your email",
-        // });
-
-        nodemailer.sendConfirmationEmail(
-          user.username,
-          user.email,
-          createdUser.confirmationCode
-        );
-
-        return;
-      });
-
-      res.status(201).json({ user: user });
-      return;
-      // Send a json response containing the user object
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ message: "Internal Server Error" });
-      return;
-    });
+  });
 });
 
 // POST  /auth/login - Verifies email and password and returns a JWT
@@ -142,7 +110,6 @@ router.post("/login", (req, res, next) => {
     res.status(400).json({
       message: "Por favor indique o seu nome de utilizador e password.",
     });
-    return;
   }
 
   // Check the users collection if a user with the same email exists
@@ -150,14 +117,14 @@ router.post("/login", (req, res, next) => {
     .then((foundUser) => {
       if (!foundUser) {
         // If the user is not found, send an error response
-        res.status(401).json({ message: "Utilizador não encontrado." });
-        return;
+        res.status(400).json({ message: "Utilizador não encontrado." });
       }
 
       console.log("encontrou o user", foundUser);
 
       if (foundUser.status != "Active") {
-        return res.status(401).json({
+        console.log("pending");
+        res.status(400).json({
           message: "Pending Account. Please Verify Your Email!",
         });
       }
@@ -182,7 +149,7 @@ router.post("/login", (req, res, next) => {
         res.status(200).json({ authToken: authToken });
       } else {
         res
-          .status(401)
+          .status(400)
           .json({ message: "Não foi possível autenticar o utilizador." });
       }
     })
@@ -207,7 +174,7 @@ router.get("/confirm/:confirmationCode", (req, res, next) => {
   })
     .then((user) => {
       if (!user) {
-        return res.status(404).send({ message: "User Not found." });
+        res.status(404).send({ message: "User Not found." });
       }
 
       user.status = "Active";
@@ -215,7 +182,7 @@ router.get("/confirm/:confirmationCode", (req, res, next) => {
         console.log("foi saved", err);
         if (err) {
           res.status(500).send({ message: err });
-          return;
+          r;
         }
         res
           .status(200)
@@ -223,7 +190,6 @@ router.get("/confirm/:confirmationCode", (req, res, next) => {
       });
     })
     .catch((e) => console.log("error", e));
-  return;
 });
 
 module.exports = router;

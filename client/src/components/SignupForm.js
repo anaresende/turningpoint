@@ -25,7 +25,6 @@ function SignupForm(props) {
     e.preventDefault();
     const requestBody = { vat, username, email, password };
 
-    console.log(requestBody);
     // Make an axios request to the API
     // If POST request is successful redirect to login page
     // If the request resolves with an error, set the error message in the state
@@ -33,9 +32,8 @@ function SignupForm(props) {
       .post(`${API_URL}/auth/signup`, requestBody)
       .then((response) => history.push("/confirm-email"))
       .catch((error) => {
-        console.log("cenas", error);
-        // const errorDescription = error.response.data.message;
-        setErrorMessage("error");
+        const errorDescription = error.response.data.message;
+        setErrorMessage(errorDescription);
       });
   };
 
