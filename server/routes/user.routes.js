@@ -63,6 +63,60 @@ router.post("/add-my-goal", (req, res) => {
     .catch((err) => res.status(500).json({ message: "Internal Server Error" }));
 });
 
+router.post("/edit-my-goal", isAuthenticated, (req, res) => {
+  const { title, plan, _id } = req.body;
+  const user = req.payload;
+  console.log(`req.payload`, req.payload);
+
+  if (title === "" || plan === "") {
+    res.status(400).json({
+      message: "Por favor coloca o teu objectivo e o plano para alcançá-lo.",
+    });
+    return;
+  }
+
+  Goal.findById(_id)
+    .then((goal) => {
+      if (user._id == goal.user) {
+        goal.title = title;
+        goal.plan = plan;
+        goal
+          .save()
+          .then(() => {
+            res.status(201).json({ goal });
+          })
+          .catch((error) => console.log(error));
+      }
+    })
+    .catch((error) => console.log(error));
+});
+
+router.post("/delete-my-goal", isAuthenticated, (req, res) => {
+  const { title, plan, _id } = req.body;
+  const user = req.payload;
+  console.log(`req.payload`, req.payload);
+
+  if (title === "" || plan === "") {
+    res.status(400).json({
+      message: "Por favor coloca o teu objectivo e o plano para alcançá-lo.",
+    });
+    return;
+  }
+
+  Goal.findById(_id)
+    .then((goal) => {
+      if (user._id == goal.user) {
+        goal
+          .remove()
+          .then(() => {
+            res.status(201).json({ goal });
+          })
+          .catch((error) => console.log(error));
+      }
+    })
+    .catch((error) => console.log(error));
+});
+
 /* GET users listing. */
 router.get("/get-customer/:vat", (req, res, next) => {
   const { vat } = req.params;

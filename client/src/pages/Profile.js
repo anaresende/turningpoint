@@ -10,7 +10,6 @@ const Profile = (props) => {
   const [documents, setDocuments] = useState([]);
 
   useEffect(() => {
-    console.log(user, logInUser);
     axios
       .get(`${API_URL}/user/my-invoices`, {
         headers: {
@@ -18,14 +17,11 @@ const Profile = (props) => {
         },
       })
       .then((response) => {
-        console.log(response.data);
         setDocuments(response.data);
       });
   }, []);
 
   const handleDownloadDocument = (document_id) => {
-    console.log("cenas", document_id);
-
     axios
       .get(`${API_URL}/user/download-document/${document_id}`, {
         headers: {
@@ -53,7 +49,7 @@ const Profile = (props) => {
           return (
             <div key={document_id}>
               {value} <br />
-              {date.slice(0, 10)} <br />
+              {date} <br />
               <button onClick={() => handleDownloadDocument(document_id)}>
                 download
               </button>
