@@ -9,9 +9,9 @@ const { isAuthenticated } = require("./../middleware/jwt.middleware.js");
 router.get("/my-goals", isAuthenticated, (req, res) => {
   const user = req.payload;
 
-  Goal.find({ user: user._id })
+  return Goal.find({ user: user._id })
     .then((goals) => {
-      res.status(201).json(goals);
+      return res.status(201).json(goals);
     })
     .catch((err) => res.status(500).json({ message: "Internal Server Error" }));
 });
@@ -19,30 +19,32 @@ router.get("/my-goals", isAuthenticated, (req, res) => {
 router.get("/my-invoices", isAuthenticated, (req, res) => {
   const user = req.payload;
 
-  MoloniApi.getInvoices(user.customer_id).then((response) => {
-    const documents = response.data;
+  return MoloniApi.getInvoices(user.customer_id)
+    .then((response) => {
+      const documents = response.data;
 
-    const documentsInfo = documents.map((document) => {
-      return {
-        document_id: document.document_id,
-        date: document.date.slice(0, 10),
-        value: `${document.net_value}€`,
-      };
-    });
+      const documentsInfo = documents.map((document) => {
+        return {
+          document_id: document.document_id,
+          date: document.date.slice(0, 10),
+          value: `${document.net_value}€`,
+        };
+      });
 
-    return res.status(200).json(documentsInfo);
-  });
-  return;
+      return res.status(200).json(documentsInfo);
+    })
+    .catch((err) => res.status(500).json({ message: "Internal Server Error" }));
 });
 
 router.get("/download-document/:documentId", isAuthenticated, (req, res) => {
   const user = req.payload;
   const { documentId } = req.params;
 
-  MoloniApi.getPDFLink(documentId).then((response) => {
-    return res.status(200).json(response.data);
-  });
-  return;
+  return MoloniApi.getPDFLink(documentId)
+    .then((response) => {
+      return res.status(200).json(response.data);
+    })
+    .catch((err) => res.status(500).json({ message: "Internal Server Error" }));
 });
 
 router.post("/add-my-goal", (req, res) => {
@@ -55,7 +57,7 @@ router.post("/add-my-goal", (req, res) => {
     return;
   }
 
-  Goal.create({ title, plan, user })
+  return Goal.create({ title, plan, user })
     .then((goal) => {
       res.status(201).json({ goal });
     })
@@ -65,96 +67,92 @@ router.post("/add-my-goal", (req, res) => {
 router.post("/edit-my-goal", isAuthenticated, (req, res) => {
   const { title, plan, _id } = req.body;
   const user = req.payload;
-  console.log(`req.payload`, req.payload);
 
   if (title === "" || plan === "") {
-    res.status(400).json({
+    return res.status(400).json({
       message: "Por favor coloca o teu objectivo e o plano para alcançá-lo.",
     });
-    return;
   }
 
-  Goal.findById(_id)
+  return Goal.findById(_id)
     .then((goal) => {
       if (user._id == goal.user) {
         goal.title = title;
         goal.plan = plan;
-        goal
+        return goal
           .save()
           .then(() => {
             res.status(201).json({ goal });
           })
-          .catch((error) => console.log(error));
+          .catch((error) =>
+            res.status(500).json({ message: "Internal Server Error" })
+          );
       }
     })
-    .catch((error) => console.log(error));
+    .catch((error) =>
+      res.status(500).json({ message: "Internal Server Error" })
+    );
 });
 
 router.post("/delete-my-goal", isAuthenticated, (req, res) => {
   const { title, plan, _id } = req.body;
   const user = req.payload;
-  console.log(`req.payload`, req.payload);
 
   if (title === "" || plan === "") {
-    res.status(400).json({
+    return res.status(400).json({
       message: "Por favor coloca o teu objectivo e o plano para alcançá-lo.",
     });
-    return;
   }
 
-  Goal.findById(_id)
+  return Goal.findById(_id)
     .then((goal) => {
       if (user._id == goal.user) {
-        goal
+        return goal
           .remove()
           .then(() => {
             res.status(201).json({ goal });
           })
-          .catch((error) => console.log(error));
+          .catch((error) =>
+            res.status(500).json({ message: "Internal Server Error" })
+          );
       }
     })
-    .catch((error) => console.log(error));
+    .catch((error) =>
+      res.status(500).json({ message: "Internal Server Error" })
+    );
 });
 
 /* GET users listing. */
 router.get("/get-customer/:vat", (req, res, next) => {
   const { vat } = req.params;
-  console.log("aqui", vat);
 
-  MoloniApi.getByVat(vat).then((response) => {
-    console.log(response);
+  return MoloniApi.getByVat(vat).then((response) => {
     if (response.data.length === 0) {
-      res.status(400).json({ message: "no customer" });
+      return res.status(400).json({ message: "no customer" });
     } else {
-      res.status(200).json(response.data);
+      return res.status(200).json(response.data);
     }
   });
 });
 
 router.get("/count", (req, res, next) => {
-  console.log("entrou");
-
-  MoloniApi.getCountClients().then((response) => {
-    console.log(response);
-    res.status(200).json(response.data);
-    // res.json(user)
-  });
-});
-
-// just to populate my database with some dance style classes
-router.get("/add-my-class", (req, res) => {
-  DanceClass.create({ style: "ballet", level: "grade 5" })
-    .then((danceClass) => {
-      res.status(201).json({ danceClass });
+  return MoloniApi.getCountClients()
+    .then((response) => {
+      return res.status(200).json(response.data);
     })
     .catch((err) => res.status(500).json({ message: "Internal Server Error" }));
 });
 
 router.get("/classes", (req, res) => {
-  DanceClass.find()
-    .then((classes) => {
-      res.status(201).json(classes);
-    })
+  return DanceClass.find()
+    .then((classes) => res.status(201).json(classes))
+    .catch((err) => res.status(500).json({ message: "Internal Server Error" }));
+});
+
+// just to populate my database with some dance style classes
+router.get("/add-my-class", (req, res) => {
+  return DanceClass.create({ style: "ballet", level: "grade 5" })
+    .then((danceClass) => res.status(201).json({ danceClass }))
     .catch((err) => res.status(500).json({ message: "Internal Server Error" }));
 });
 
