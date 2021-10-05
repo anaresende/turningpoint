@@ -28,7 +28,6 @@ function MyGoals() {
   };
 
   const handleEditGoal = (editGoal) => {
-    console.log("ediiiiiiit", editGoal);
     axios
       .post(
         `${API_URL}/user/edit-my-goal`,

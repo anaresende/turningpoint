@@ -8,6 +8,7 @@ import ErrorPage from "./pages/ErrorPage";
 import MyGoals from "./pages/MyGoals";
 import Welcome from "./pages/Welcome";
 import Profile from "./pages/Profile";
+import AdminPage from "./pages/AdminPage";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -49,6 +50,7 @@ function App() {
           path="/user/my-invoices"
           component={() => <h1>my invoices</h1>}
         />
+        <PrivateRoute exact routeAdmin path="/admin" component={AdminPage} />
         <PrivateRoute exact path="/user/my-goals" component={MyGoals} />
         <PrivateRoute
           exact

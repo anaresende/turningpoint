@@ -19,15 +19,6 @@ function SignupForm(props) {
       })
       .filter(Boolean);
 
-    const requestBody = {
-      vat: form.vat.value,
-      username: form.username.value,
-      email: form.email.value,
-      password: form.password.value,
-      danceClass: danceClass,
-    };
-
-    console.log(requestBody);
     let formData = new FormData();
     formData.append("avatarUrl", form.avatarUrl.files[0]);
     formData.append("vat", form.vat.value);

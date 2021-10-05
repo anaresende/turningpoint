@@ -140,10 +140,11 @@ router.post("/login", (req, res, next) => {
 
       if (passwordCorrect) {
         // Deconstruct the user object to omit the password
-        const { _id, username, customer_id, email, avatarUrl } = foundUser;
+        const { _id, username, customer_id, email, avatarUrl, role } =
+          foundUser;
 
         // Create an object that will be set as the token payload
-        const payload = { _id, username, customer_id, email, avatarUrl };
+        const payload = { _id, username, customer_id, email, avatarUrl, role };
 
         // Create and sign the token
         const authToken = jwt.sign(payload, process.env.JWT_SECRET, {

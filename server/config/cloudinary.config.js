@@ -11,8 +11,8 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
-    allowed_formats: ["svg", "png", "jpg"],
-    folder: "cloudinary-test", // Folder name on the Cloudinary disk
+    allowed_formats: ["svg", "png", "jpg", "mp4", "mp3", "wav"],
+    folder: "turning-point", // Folder name on the Cloudinary disk
   },
 });
 
