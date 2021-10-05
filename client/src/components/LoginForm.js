@@ -32,9 +32,9 @@ function LoginForm(props) {
         history.push("/");
       })
       .catch((error) => {
-        //const errorDescription = error.response.data.message;
-        console.log("aqui o erro", error);
-        setErrorMessage("error");
+        const errorDescription = error?.response?.data?.message || "Error";
+        console.log("error front", error?.response);
+        setErrorMessage(errorDescription);
       });
   };
 

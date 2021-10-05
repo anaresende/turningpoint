@@ -27,6 +27,7 @@ function SignupForm(props) {
     formData.append("password", form.password.value);
     formData.append("danceClass", danceClass);
 
+    console.log("danceClass", danceClass);
     console.log(formData);
     // Make an axios request to the API
     // If POST request is successful redirect to login page
@@ -35,20 +36,24 @@ function SignupForm(props) {
       .post(`${API_URL}/auth/signup`, formData)
       .then((response) => history.push("/confirm-email"))
       .catch((error) => {
-        const errorDescription = error.response.data.message;
+        const errorDescription = error?.response?.data?.message || "error";
+        console.log("error front", error?.response);
         setErrorMessage(errorDescription);
       });
   };
 
   useEffect(() => {
-    axios.get(`${API_URL}/user/classes`).then((response) => {
-      const classesByStyle = response.data.reduce((acc, current) => {
-        acc[current.style] = [...(acc[current.style] || []), current];
-        return acc;
-      }, []);
+    axios
+      .get(`${API_URL}/user/classes`)
+      .then((response) => {
+        const classesByStyle = response.data.reduce((acc, current) => {
+          acc[current.style] = [...(acc[current.style] || []), current];
+          return acc;
+        }, []);
 
-      setClasses(classesByStyle);
-    });
+        setClasses(classesByStyle);
+      })
+      .catch((error) => console.log("error: ", error));
   }, []);
 
   return (
@@ -74,7 +79,7 @@ function SignupForm(props) {
         <label>Password:</label>
         <input type="password" name="password" required />
         <br />
-        <label>Modalidades:</label>
+        {classes && <label>Modalidades:</label>}
         {Object.keys(classes).map((style) => {
           const styles = classes[style];
 
@@ -96,6 +101,8 @@ function SignupForm(props) {
             </div>
           );
         })}
+        <br />
+
         <button type="submit">Regista-te!</button>
       </form>
       {errorMessage && <p className="error-message">{errorMessage}</p>}

@@ -17,7 +17,7 @@ router.post("/signup", fileUploader.single("avatarUrl"), (req, res, next) => {
   console.log("------------------------------------", avatarUrl);
 
   if (email === "" || password === "" || username === "" || vat === "") {
-    res.status(500).json({
+    return res.status(500).json({
       message:
         "Por favor indique um endereço de email, uma password, um nome de ultilizador e o número de contribuinte.",
     });
@@ -25,86 +25,101 @@ router.post("/signup", fileUploader.single("avatarUrl"), (req, res, next) => {
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   if (!emailRegex.test(email)) {
-    res
+    return res
       .status(500)
       .json({ message: "Por favor indique um endereço de e-mail." });
   }
 
   const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
   if (!passwordRegex.test(password)) {
-    res.status(500).json({
+    return res.status(500).json({
       message:
         "A password tem de ter no mínimo 6 caracteres e conter maíusculas e minusculas. ",
     });
   }
 
-  User.findOne({ vat }).then((foundUser) => {
-    if (foundUser) {
-      res.status(400).json({
-        message: "O utilizador já existe.",
-      });
-      return;
-    }
-    console.log("check in moloni");
-
-    // check if User is in Moloni
-    MoloniApi.getByVat(vat)
-      .then((response) => {
-        console.log("foun in moloni?", response.data);
-        if (response.data.length === 0) {
-          res.status(400).json({
-            message: "O utilizador não está registado na escola.",
-          });
-          return;
-        }
-        const moloniUser = response.data[0];
-
-        if (email !== moloniUser.email && email !== moloniUser.contact_email) {
-          res.status(400).json({
-            message: "Este email não se encontra registado na escola.",
-          });
-          return;
-        }
-        console.log("moloni user", moloniUser);
-
-        // If VAT is unique, proceed to hash the password
-        const salt = bcrypt.genSaltSync(saltRounds);
-        const hashedPassword = bcrypt.hashSync(password, salt);
-
-        const characters =
-          "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        let emailToken = "";
-
-        for (let i = 0; i < 25; i++) {
-          emailToken +=
-            characters[Math.floor(Math.random() * characters.length)];
-        }
-
-        // Create the new user in the database
-        // We return a pending promise, which allows us to chain another `then`
-        User.create({
-          email,
-          password: hashedPassword,
-          username,
-          vat,
-          danceClass,
-          avatarUrl,
-          customer_id: moloniUser.customer_id,
-          confirmationCode: emailToken,
-        }).then((newUser) => {
-          sendConfirmationEmail(
-            newUser.username,
-            newUser.email,
-            newUser.confirmationCode
-          );
-          res.status(201).json({ user: newUser });
+  return User.findOne({ vat })
+    .then((foundUser) => {
+      if (foundUser) {
+        return res.status(500).json({
+          message: "O utilizador já existe.",
         });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json({ message: "Internal Server Error" });
-      });
-  });
+      }
+      console.log("check in moloni", foundUser);
+
+      // check if User is in Moloni
+      return MoloniApi.getByVat(vat)
+        .then((response) => {
+          console.log("foun in moloni?", response.data);
+          if (response.data.length === 0) {
+            return res.status(500).json({
+              message: "O utilizador não está registado na escola.",
+            });
+          }
+          const moloniUser = response.data[0];
+
+          if (
+            email !== moloniUser.email &&
+            email !== moloniUser.contact_email
+          ) {
+            return res.status(500).json({
+              message: "Este email não se encontra registado na escola.",
+            });
+          }
+          console.log("moloni user", moloniUser);
+          console.log("dance class", danceClass);
+
+          // If VAT is unique, proceed to hash the password
+          const salt = bcrypt.genSaltSync(saltRounds);
+          const hashedPassword = bcrypt.hashSync(password, salt);
+
+          const characters =
+            "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+          let emailToken = "";
+
+          for (let i = 0; i < 25; i++) {
+            emailToken +=
+              characters[Math.floor(Math.random() * characters.length)];
+          }
+
+          // Create the new user in the database
+          // We return a pending promise, which allows us to chain another `then`
+          User.create({
+            email,
+            password: hashedPassword,
+            username,
+            vat,
+            danceClass,
+            avatarUrl,
+            customer_id: moloniUser.customer_id,
+            confirmationCode: emailToken,
+          })
+            .then((newUser) => {
+              sendConfirmationEmail(
+                newUser.username,
+                newUser.email,
+                newUser.confirmationCode
+              );
+              res.status(201).json({ user: newUser });
+            })
+            .catch((err) => {
+              console.log(err);
+              return res
+                .status(500)
+                .json({ message: "Não foi possivel criar o utilizador" });
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+          return res
+            .status(500)
+            .json({ message: "Internal Server Error on connection with API" });
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(500).json({ message: "Internal Server Error" });
+    });
 });
 
 // POST  /auth/login - Verifies email and password and returns a JWT
@@ -113,30 +128,28 @@ router.post("/login", (req, res, next) => {
 
   // Check if email or password are provided as empty string
   if (username === "" || password === "") {
-    res.status(400).json({
+    return res.status(500).json({
       message: "Por favor indique o seu nome de utilizador e password.",
     });
   }
 
   // Check the users collection if a user with the same email exists
-  User.findOne({ username })
+  return User.findOne({ username })
     .then((foundUser) => {
       if (!foundUser) {
         // If the user is not found, send an error response
-        res.status(400).json({ message: "Utilizador não encontrado." });
+        return res.status(500).json({ message: "Utilizador não encontrado." });
       }
 
-      console.log("encontrou o user", foundUser);
+      const passwordCorrect = bcrypt.compareSync(password, foundUser.password);
 
       if (foundUser.status != "Active") {
-        console.log("pending");
-        res.status(400).json({
+        return res.status(500).json({
           message: "Pending Account. Please Verify Your Email!",
         });
       }
 
       // Compare the provided password with the one saved in the database
-      const passwordCorrect = bcrypt.compareSync(password, foundUser.password);
 
       if (passwordCorrect) {
         // Deconstruct the user object to omit the password
@@ -153,10 +166,10 @@ router.post("/login", (req, res, next) => {
         });
 
         // Send the token as the response
-        res.status(200).json({ authToken: authToken });
+        return res.status(200).json({ authToken: authToken });
       } else {
-        res
-          .status(400)
+        return res
+          .status(500)
           .json({ message: "Não foi possível autenticar o utilizador." });
       }
     })
@@ -181,7 +194,7 @@ router.get("/confirm/:confirmationCode", (req, res, next) => {
   })
     .then((user) => {
       if (!user) {
-        res.status(404).send({ message: "User Not found." });
+        return res.status(404).send({ message: "User Not found." });
       }
 
       user.status = "Active";
