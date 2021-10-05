@@ -10,10 +10,17 @@ cloudinary.config({
 
 const storage = new CloudinaryStorage({
   cloudinary,
+
   params: {
-    allowed_formats: ["svg", "png", "jpg", "mp4", "mp3", "wav"],
+    allowed_formats: ["svg", "png", "jpg", "mp3"],
     folder: "turning-point", // Folder name on the Cloudinary disk
   },
 });
 
-module.exports = multer({ storage }); // Multer will be responsible for reading the forma and store on the cloud
+module.exports = multer({
+  storage,
+  limits: {
+    fieldNameSize: 200,
+    fileSize: 5 * 1024 * 1024,
+  },
+}); // Multer will be responsible for reading the forma and store on the cloud

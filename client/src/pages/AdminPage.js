@@ -37,7 +37,7 @@ const AdminPage = (props) => {
         setTimeout(() => {
           setMediaMode(false);
           setErrorMessage(false);
-        }, 5000);
+        }, 1500);
       });
   };
 
