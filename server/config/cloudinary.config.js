@@ -12,7 +12,7 @@ const storage = new CloudinaryStorage({
   cloudinary,
 
   params: {
-    allowed_formats: ["svg", "png", "jpg", "mp3"],
+    allowed_formats: ["svg", "png", "jpg", "mp3", "mp4"],
     folder: "turning-point", // Folder name on the Cloudinary disk
   },
 });

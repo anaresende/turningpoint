@@ -10,6 +10,14 @@ const mediaContentSchema = new Schema({
     type: String,
     required: true,
   },
+  fileType: {
+    type: String,
+    required: true,
+  },
+  title: {
+    type: String,
+    required: true,
+  },
 });
 
 const MediaContent = model("MediaContent", mediaContentSchema);

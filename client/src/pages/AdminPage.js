@@ -19,8 +19,7 @@ const AdminPage = (props) => {
     let formData = new FormData();
     formData.append("fileUrl", form.fileUrl.files[0]);
     formData.append("danceClass", form.danceClass.value);
-
-    console.log(formData);
+    formData.append("title", form.title.value);
 
     axios
       .post(`${API_URL}/admin/add-media-content`, formData)
@@ -41,7 +40,7 @@ const AdminPage = (props) => {
       });
   };
 
-  useEffect(() => {
+  const updateMediaList = () => {
     axios
       .get(`${API_URL}/admin`, {
         headers: {
@@ -52,6 +51,10 @@ const AdminPage = (props) => {
         setClasses(response.data.classes);
         setMediaContent(response.data.media);
       });
+  };
+
+  useEffect(() => {
+    updateMediaList();
   }, [mediaMode]);
 
   const handleDeleteMedia = (mediaId) => {
@@ -68,7 +71,7 @@ const AdminPage = (props) => {
         }
       )
       .then((response) => {
-        setMediaContent(null);
+        updateMediaList();
       });
   };
 
@@ -87,10 +90,21 @@ const AdminPage = (props) => {
                 return (
                   <li key={item._id}>
                     <p>
+                      <strong>{item.title}</strong>
+                      <br />
                       {item.danceClass.style} - {item.danceClass.level}
                     </p>
-                    <img src={item.fileUrl} width="40px" />
+                    {item.fileType?.includes("audio") && (
+                      <audio controls src={item.fileUrl}></audio>
+                    )}
+                    {item.fileType?.includes("image") && (
+                      <img src={item.fileUrl} width="40px" />
+                    )}
+                    {item.fileType?.includes("video") && (
+                      <video src={item.fileUrl} controls width="400px"></video>
+                    )}
                     <br />
+
                     <button
                       type="submit"
                       onClick={() => handleDeleteMedia(item._id)}
@@ -111,6 +125,10 @@ const AdminPage = (props) => {
         <>
           <h3>Insira Conteudo Media</h3>
           <form onSubmit={handleMediaSubmit}>
+            <label htmlFor="title">Título</label> <br />
+            <input type="text" name="title" id="title" />
+            <br />
+            <br />
             <label htmlFor="danceClass">Selecione a turma</label>
             <br />
             <select name="danceClass" id="danceClass">
@@ -131,7 +149,6 @@ const AdminPage = (props) => {
             <br />
             <br />
             <button type="submit">Inserir Media</button>
-
             {errorMessage && <p className="error-message">{errorMessage}</p>}
           </form>
         </>

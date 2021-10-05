@@ -43,10 +43,22 @@ router.post(
   "/add-media-content",
   fileUploader.single("fileUrl"),
   (req, res, next) => {
-    const { danceClass } = req.body;
-    const fileUrl = req.file?.path;
+    const { danceClass, title } = req.body;
 
-    MediaContent.create({ fileUrl: fileUrl, danceClass: danceClass })
+    if (!req.file) {
+      res.status(400).json({ message: "You need to select a media file" });
+      return;
+    }
+
+    const fileUrl = req.file?.path;
+    const fileType = req.file?.mimetype;
+
+    MediaContent.create({
+      fileUrl: fileUrl,
+      fileType: req.file.mimetype,
+      danceClass: danceClass,
+      title: title,
+    })
       .then((media) => {
         res.status(201).json({ media });
       })
