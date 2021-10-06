@@ -3,6 +3,7 @@ const router = express.Router();
 const MoloniApi = require("../api/moloni");
 const Goal = require("../models/goalmodel");
 const DanceClass = require("../models/danceclassmodel");
+const MediaContent = require("../models/mediacontentmodel");
 
 const { isAuthenticated } = require("./../middleware/jwt.middleware.js");
 
@@ -154,6 +155,22 @@ router.get("/add-my-class", (req, res) => {
   return DanceClass.create({ style: "ballet", level: "grade 5" })
     .then((danceClass) => res.status(201).json({ danceClass }))
     .catch((err) => res.status(500).json({ message: "Internal Server Error" }));
+});
+
+router.get("/dance-class/:danceClassId", isAuthenticated, (req, res, next) => {
+  const user = req.payload;
+  const { danceClassId } = req.params;
+
+  return MediaContent.find({
+    danceClass: danceClassId,
+  })
+    .populate("danceClass")
+    .then((media) => {
+      return res.status(200).json(media);
+    })
+    .catch((err) => {
+      return res.status(500).json({ message: "Internal Server Error" });
+    });
 });
 
 module.exports = router;
