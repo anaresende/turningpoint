@@ -83,7 +83,7 @@ function HomePage() {
             <a href="mailto:geral@turningpoint.dance">
               <h3>
                 vem fazer parte da nossa escola
-                <IconArrowRight className="ms-3" width="45px" />
+                <IconArrowRight className="ms-3 Homepage-icon-right" />
               </h3>
             </a>
           </div>

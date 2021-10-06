@@ -51,3 +51,8 @@
   text-decoration: none;
   color: var(--color-background);
 }
+
+.Homepage-icon-right {
+  width: 45px;
+  fill: var(--color-background);
+}

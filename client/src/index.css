@@ -18,6 +18,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+::selection {
+  background-color: var(--color-rose);
+  color: white;
+}
+
 h1,
 h2,
 h3,
@@ -27,7 +32,7 @@ h4 {
 
 h1 {
   font-size: 80px;
-  line-height: 120px;
+  line-height: 100px;
   letter-spacing: 0.1em;
 }
 
