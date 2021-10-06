@@ -36,6 +36,15 @@ const userSchema = new Schema({
     default: "user",
   },
   danceClass: [{ type: Schema.Types.ObjectId, ref: "DanceClass" }],
+  address: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
+  phone: {
+    type: String,
+  },
 });
 
 const User = model("User", userSchema);

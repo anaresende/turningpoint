@@ -50,7 +50,6 @@ router.post("/signup", fileUploader.single("avatarUrl"), (req, res, next) => {
       // check if User is in Moloni
       return MoloniApi.getByVat(vat)
         .then((response) => {
-          console.log("foun in moloni?", response.data);
           if (response.data.length === 0) {
             return res.status(500).json({
               message: "O utilizador não está registado na escola.",
@@ -66,9 +65,13 @@ router.post("/signup", fileUploader.single("avatarUrl"), (req, res, next) => {
               message: "Este email não se encontra registado na escola.",
             });
           }
-          console.log("moloni user", moloniUser);
-          console.log("dance class", danceClass);
 
+          let danceClassesIds = null;
+          if (danceClass !== "") {
+            danceClassesIds = danceClass.split(",");
+          }
+
+          console.log("dance class", danceClass, danceClassesIds);
           // If VAT is unique, proceed to hash the password
           const salt = bcrypt.genSaltSync(saltRounds);
           const hashedPassword = bcrypt.hashSync(password, salt);
@@ -89,10 +92,13 @@ router.post("/signup", fileUploader.single("avatarUrl"), (req, res, next) => {
             password: hashedPassword,
             username,
             vat,
-            danceClass,
+            danceClass: danceClassesIds,
             avatarUrl,
             customer_id: moloniUser.customer_id,
             confirmationCode: emailToken,
+            address: moloniUser.address,
+            city: moloniUser.city,
+            phone: moloniUser.phone,
           })
             .then((newUser) => {
               sendConfirmationEmail(
@@ -162,6 +168,9 @@ router.post("/login", (req, res, next) => {
           avatarUrl,
           role,
           danceClass,
+          address,
+          city,
+          phone,
         } = foundUser;
 
         // Create an object that will be set as the token payload
@@ -173,6 +182,9 @@ router.post("/login", (req, res, next) => {
           avatarUrl,
           role,
           danceClass,
+          address,
+          city,
+          phone,
         };
 
         // Create and sign the token

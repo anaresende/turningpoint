@@ -27,11 +27,13 @@ const Profile = (props) => {
             </div>
             <div className="Profile-information mt-3">
               <p>Morada</p>
-              <h5>a minha address aqui</h5>
+              <h5>
+                {user.address}, {user.city}{" "}
+              </h5>
             </div>
             <div className="Profile-information mt-3">
               <p>Contacto</p>
-              <h5>910000000</h5>
+              <h5>{user.phone}</h5>
             </div>
             <div className="Profile-information mt-3">
               <p>Password</p>
