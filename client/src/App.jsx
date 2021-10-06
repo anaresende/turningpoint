@@ -22,48 +22,53 @@ function App() {
   return (
     <div className="App">
       <Navbar />
+      <main className="App-main">
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/about" component={() => <h1>Sobre Nós</h1>} />
+          <Route
+            exact
+            path="/dance-styles"
+            component={() => <h1>Modalidades</h1>}
+          />
+          <Route exact path="/schedules" component={() => <h1>Horários</h1>} />
+          <Route
+            exact
+            path="/teachers"
+            component={() => <h1>Professores</h1>}
+          />
+          <Route exact path="/gallery" component={() => <h1>Galeria</h1>} />
+          <Route exact path="/contacts" component={() => <h1>Contactos</h1>} />
+          <Route
+            exact
+            path="/competition"
+            component={() => <h1>Grupo de competição</h1>}
+          />
+          <Route
+            path="/confirm-email"
+            component={() => <h1>Por favor confirme o seu email</h1>}
+          />
+          <Route path="/auth/confirm/:confirmationCode" component={Welcome} />
 
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/about" component={() => <h1>Sobre Nós</h1>} />
-        <Route
-          exact
-          path="/dance-styles"
-          component={() => <h1>Modalidades</h1>}
-        />
-        <Route exact path="/schedules" component={() => <h1>Horários</h1>} />
-        <Route exact path="/teachers" component={() => <h1>Professores</h1>} />
-        <Route exact path="/gallery" component={() => <h1>Galeria</h1>} />
-        <Route exact path="/contacts" component={() => <h1>Contactos</h1>} />
-        <Route
-          exact
-          path="/competition"
-          component={() => <h1>Grupo de competição</h1>}
-        />
-        <Route
-          path="/confirm-email"
-          component={() => <h1>Por favor confirme o seu email</h1>}
-        />
-        <Route path="/auth/confirm/:confirmationCode" component={Welcome} />
+          {/* 👇 UPDATE THE EXISTING ROUTES 👇  */}
+          <PrivateRoute exact path="/user" component={Profile} />
+          <PrivateRoute exact path="/user/my-invoices" component={Invoices} />
+          <PrivateRoute path="/dance-class/:id" component={DanceClassPage} />
+          <PrivateRoute exact routeAdmin path="/admin" component={AdminPage} />
+          <PrivateRoute exact path="/user/my-goals" component={MyGoals} />
+          <PrivateRoute
+            exact
+            path="/user/my-practices"
+            component={() => <h1>my practices</h1>}
+          />
 
-        {/* 👇 UPDATE THE EXISTING ROUTES 👇  */}
-        <PrivateRoute exact path="/user" component={Profile} />
-        <PrivateRoute exact path="/user/my-invoices" component={Invoices} />
-        <PrivateRoute path="/dance-class/:id" component={DanceClassPage} />
-        <PrivateRoute exact routeAdmin path="/admin" component={AdminPage} />
-        <PrivateRoute exact path="/user/my-goals" component={MyGoals} />
-        <PrivateRoute
-          exact
-          path="/user/my-practices"
-          component={() => <h1>my practices</h1>}
-        />
+          {/* <AnonRoute exact path="/signup" component={SignupPage} /> */}
+          <AnonRoute exact path="/login" component={LoginPage} />
 
-        {/* <AnonRoute exact path="/signup" component={SignupPage} /> */}
-        <AnonRoute exact path="/login" component={LoginPage} />
-
-        {/* an invalid path -> Error page */}
-        <Route component={ErrorPage} />
-      </Switch>
+          {/* an invalid path -> Error page */}
+          <Route component={ErrorPage} />
+        </Switch>
+      </main>
       <Footer />
     </div>
   );

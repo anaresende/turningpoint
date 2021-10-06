@@ -11,8 +11,8 @@ function Navbar() {
 
   console.log("user", user);
   return (
-    <nav className="Navbar-nav">
-      <div className="container-xxl">
+    <header className="Navbar-nav">
+      <nav className="container-xxl">
         <div className="Navbar-nav-left">
           <div className="dropdown">
             <button
@@ -141,7 +141,7 @@ function Navbar() {
                         <li>
                           <Link
                             className="dropdown-item Navbar-nav-link"
-                            to={`dance-class/${item._id}`}
+                            to={`/dance-class/${item._id}`}
                           >
                             {item.style} - {item.level}
                           </Link>
@@ -176,8 +176,8 @@ function Navbar() {
             </>
           )}
         </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 }
 

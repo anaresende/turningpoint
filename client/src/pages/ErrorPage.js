@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
+import "./Errorpage.css";
+import { Link } from "react-router-dom";
 
 const NotFound = () => (
-  <div>
-    <h1>404 - Not Found!</h1>
-    <Link to="/">
-        Voltar para Home page 
+  <div className="container error-page">
+    <h3>oops, esta página não existe</h3>
+    <Link className="link" to="/">
+      Voltar para a página principal
     </Link>
   </div>
 );
