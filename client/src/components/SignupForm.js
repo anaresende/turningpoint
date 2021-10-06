@@ -36,7 +36,7 @@ function SignupForm(props) {
       .post(`${API_URL}/auth/signup`, formData)
       .then((response) => history.push("/confirm-email"))
       .catch((error) => {
-        const errorDescription = error?.response?.data?.message || "error";
+        const errorDescription = error?.response?.data?.message || "Error";
         console.log("error front", error?.response);
         setErrorMessage(errorDescription);
       });
@@ -58,10 +58,10 @@ function SignupForm(props) {
 
   return (
     <div className="SignupForm">
-      <h1>
+      <h4>
         És nosso aluno e ainda não tens conta? <br />
         Regista-te!
-      </h1>
+      </h4>
 
       <form onSubmit={handleSignupSubmit}>
         <label>Foto:</label>

@@ -1,12 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
-import { Link } from "react-router-dom";
 import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 const Profile = (props) => {
-  const { user, logInUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [documents, setDocuments] = useState([]);
 
   useEffect(() => {
@@ -37,8 +36,6 @@ const Profile = (props) => {
         window.open(directDownloadUrl);
       });
   };
-
-  console.log(user);
 
   return (
     <div className="container">

@@ -13,8 +13,41 @@
 }
 
 .Homepage-hero {
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
-  outline: 1px solid red;
-  margin-top: -100px;
+  margin-top: calc(-1 * var(--height-header));
+}
+
+.Homepage-hero-slogan {
+  color: var(--color-rose);
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: var(--height-header);
+}
+
+.Homepage-block h2 {
+  color: var(--color-rose);
+  padding-bottom: 50px;
+}
+
+.Homepage-eventext {
+  padding-left: 50px;
+}
+
+.Homepage-oddtext {
+  padding-right: 50px;
+}
+
+.Homepage-callAction {
+  height: 300px;
+  background-color: var(--color-rose);
+  display: flex;
+  align-items: center;
+}
+
+.Homepage-callAction a {
+  text-decoration: none;
+  color: var(--color-background);
 }

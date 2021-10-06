@@ -5,7 +5,7 @@ import axios from "axios";
 const API_URL = process.env.REACT_APP_API_URL;
 
 const AdminPage = (props) => {
-  const { user, logInUser, isAdmin } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [mediaContent, setMediaContent] = useState([]);
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [classes, setClasses] = useState([]);
@@ -17,6 +17,7 @@ const AdminPage = (props) => {
     e.preventDefault();
     const form = e.currentTarget;
     let formData = new FormData();
+
     formData.append("fileUrl", form.fileUrl.files[0]);
     formData.append("danceClass", form.danceClass.value);
     formData.append("title", form.title.value);
@@ -28,9 +29,10 @@ const AdminPage = (props) => {
         setMediaInsertLoading(false);
       })
       .catch((error) => {
-        const errorDescription = error.response.data.message;
-        console.log(error);
-        setErrorMessage("problem in uploading");
+        const errorDescription =
+          error?.response?.data?.message || "problem in uploading";
+
+        setErrorMessage(errorDescription);
         setMediaInsertLoading(false);
 
         setTimeout(() => {
@@ -75,8 +77,6 @@ const AdminPage = (props) => {
       });
   };
 
-  console.log(mediaContent);
-
   return (
     <div className="container">
       <h1>
@@ -98,7 +98,11 @@ const AdminPage = (props) => {
                       <audio controls src={item.fileUrl}></audio>
                     )}
                     {item.fileType?.includes("image") && (
-                      <img src={item.fileUrl} width="40px" />
+                      <img
+                        src={item.fileUrl}
+                        width="40px"
+                        alt={`${item.title}`}
+                      />
                     )}
                     {item.fileType?.includes("video") && (
                       <video src={item.fileUrl} controls width="400px"></video>

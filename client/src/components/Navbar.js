@@ -9,73 +9,102 @@ function Navbar() {
   // the values from AuthContext.Provider `value` prop
   const { isLoggedIn, user, logOutUser, isAdmin } = useContext(AuthContext);
 
+  console.log("user", user);
   return (
     <nav className="Navbar-nav">
-      <div class="container">
+      <div className="container-xxl">
         <div className="Navbar-nav-left">
-          <div class="dropdown">
+          <div className="dropdown">
             <button
-              class="btn dropdown-toggle"
+              className="btn Navbar-nav-link dropdown-toggle ps-0"
               type="button"
               id="dropdownMenuButton1"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <Link className="Navbar-nav-link" to="/about">
-                sobre nós
-              </Link>
+              escola
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li>
-                <a class="dropdown-item" href="#">
-                  <Link className="Navbar-nav-link" to="/teachers">
-                    equipa docente
-                  </Link>
-                </a>
+                <Link className="dropdown-item Navbar-nav-link" to="/about">
+                  sobre nós
+                </Link>
               </li>
               <li>
-                <a class="dropdown-item" href="#">
-                  <Link className="Navbar-nav-link" to="/gallery">
-                    galeria
-                  </Link>
-                </a>
+                <Link className="dropdown-item Navbar-nav-link" to="/teachers">
+                  equipa docente
+                </Link>
               </li>
               <li>
-                <a class="dropdown-item" href="#">
-                  <Link className="Navbar-nav-link" to="/contacts">
-                    contactos
-                  </Link>
-                </a>
+                <Link className="dropdown-item Navbar-nav-link" to="/gallery">
+                  galeria
+                </Link>
+              </li>
+              <li>
+                <Link className="dropdown-item Navbar-nav-link" to="/contacts">
+                  contactos
+                </Link>
               </li>
             </ul>
           </div>
-          <div class="dropdown">
+          <div className="dropdown">
             <button
-              class="btn dropdown-toggle"
+              className="btn dropdown-toggle Navbar-nav-link"
               type="button"
               id="dropdownMenuButton1"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <Link className="Navbar-nav-link" to="/dance-styles">
-                modalidades
-              </Link>
+              modalidades
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li>
-                <a class="dropdown-item" href="#">
-                  Action
-                </a>
+                <Link
+                  className="dropdown-item Navbar-nav-link"
+                  to="/dance-styles#ballet"
+                >
+                  ballet
+                </Link>
               </li>
               <li>
-                <a class="dropdown-item" href="#">
-                  Another action
-                </a>
+                <Link
+                  className="dropdown-item Navbar-nav-link"
+                  to="/dance-styles#contemporaneo"
+                >
+                  contemporâneo
+                </Link>
               </li>
               <li>
-                <a class="dropdown-item" href="#">
-                  Something else here
-                </a>
+                <Link
+                  className="dropdown-item Navbar-nav-link"
+                  to="/dance-styles#commercial"
+                >
+                  commercial
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="dropdown-item Navbar-nav-link"
+                  to="/dance-styles#jazz"
+                >
+                  jazz
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="dropdown-item Navbar-nav-link"
+                  to="/dance-styles#latinas"
+                >
+                  latinas
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="dropdown-item Navbar-nav-link"
+                  to="/dance-styles#pilates-clinico"
+                >
+                  pilates clínico
+                </Link>
               </li>
             </ul>
           </div>
@@ -92,9 +121,36 @@ function Navbar() {
         <div className="Navbar-nav-right">
           {isLoggedIn ? (
             <>
-              <Link className="Navbar-nav-link" to="/user">
-                My Profile
-              </Link>
+              {user?.danceClass?.length > 0 && (
+                <div className="dropdown">
+                  <button
+                    className="btn dropdown-toggle Navbar-nav-link"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    turmas
+                  </button>
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1"
+                  >
+                    {user.danceClass.map((item) => {
+                      return (
+                        <li>
+                          <Link
+                            className="dropdown-item Navbar-nav-link"
+                            to={`dance-class/${item._id}`}
+                          >
+                            {item.style} - {item.level}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              )}
               <Link className="Navbar-nav-link" to="/user/my-goals">
                 My Goals
               </Link>
@@ -103,9 +159,11 @@ function Navbar() {
                   Admin
                 </Link>
               )}
+              <Link className="Navbar-nav-link" to="/user">
+                <span>{user.username}</span>
+                <img src={user.avatarUrl} width="40px" alt="avatar" />
+              </Link>
               <button onClick={logOutUser}>Logout</button>
-              <span>{user.username}</span>
-              <img src={user.avatarUrl} width="40px" alt="" />
             </>
           ) : (
             <>

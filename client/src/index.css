@@ -1,3 +1,12 @@
+:root {
+  --color-rose: #f6aa91;
+  --color-orange: #ea5e53;
+  --color-background: #f6f2f0;
+
+  --height-header: 100px;
+  --height-footer: 120px;
+}
+
 html {
   font-size: 14px;
 }
@@ -7,4 +16,45 @@ body {
   font-family: "Internacional", "Roboto";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 80px;
+  line-height: 120px;
+  letter-spacing: 0.1em;
+}
+
+h2 {
+  font-size: 48px;
+  line-height: 68px;
+  letter-spacing: 0.04em;
+}
+
+h3 {
+  font-size: 36px;
+  line-height: 49px;
+  letter-spacing: 0.04em;
+}
+
+h4 {
+  font-size: 24px;
+  line-height: 33px;
+  letter-spacing: 0.04em;
+}
+
+p {
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: 0.04em;
+}
+
+img {
+  max-width: 100%;
 }

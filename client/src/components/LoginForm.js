@@ -40,7 +40,7 @@ function LoginForm(props) {
 
   return (
     <div className="LoginForm">
-      <h1>Bem-vindo de volta!</h1>
+      <h4>Bem-vindo de volta!</h4>
 
       <form onSubmit={handleLoginSubmit}>
         <label>Username:</label>

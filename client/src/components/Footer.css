@@ -1,0 +1,12 @@
+.Footer {
+  height: var(--height-footer);
+}
+
+.Footer .row {
+  height: 100%;
+}
+
+.Footer a {
+  text-decoration: none;
+  color: black;
+}

@@ -135,6 +135,7 @@ router.post("/login", (req, res, next) => {
 
   // Check the users collection if a user with the same email exists
   return User.findOne({ username })
+    .populate("danceClass")
     .then((foundUser) => {
       if (!foundUser) {
         // If the user is not found, send an error response
@@ -153,11 +154,26 @@ router.post("/login", (req, res, next) => {
 
       if (passwordCorrect) {
         // Deconstruct the user object to omit the password
-        const { _id, username, customer_id, email, avatarUrl, role } =
-          foundUser;
+        const {
+          _id,
+          username,
+          customer_id,
+          email,
+          avatarUrl,
+          role,
+          danceClass,
+        } = foundUser;
 
         // Create an object that will be set as the token payload
-        const payload = { _id, username, customer_id, email, avatarUrl, role };
+        const payload = {
+          _id,
+          username,
+          customer_id,
+          email,
+          avatarUrl,
+          role,
+          danceClass,
+        };
 
         // Create and sign the token
         const authToken = jwt.sign(payload, process.env.JWT_SECRET, {

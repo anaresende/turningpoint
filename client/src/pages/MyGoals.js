@@ -2,7 +2,6 @@ import { useState, useContext, useEffect } from "react";
 import MyGoal from "../components/MyGoalForm";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
-import { Link } from "react-router-dom";
 import EditMyGoal from "../components/EditMyGoal";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -11,11 +10,9 @@ function MyGoals() {
   const [goals, setGoals] = useState([]);
   const [editMode, setEditMode] = useState(null);
   const [addMode, setAddMode] = useState(null);
-  const { user, logInUser } = useContext(AuthContext);
-  console.log(user, logInUser);
+  const { user } = useContext(AuthContext);
 
   const addNewGoal = (newGoal) => {
-    const updatedGoals = [...goals, newGoal];
     axios
       .post(`${API_URL}/user/add-my-goal`, {
         title: newGoal.title,
@@ -84,7 +81,6 @@ function MyGoals() {
     setEditMode(goalValues);
   };
 
-  console.log(editMode);
   return (
     <div>
       {!editMode && !addMode && (

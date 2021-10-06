@@ -14,6 +14,7 @@ import AdminPage from "./pages/AdminPage";
 import Navbar from "./components/Navbar";
 import PrivateRoute from "./components/PrivateRoute";
 import AnonRoute from "./components/AnonRoute";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -64,6 +65,7 @@ function App() {
         {/* an invalid path -> Error page */}
         <Route component={ErrorPage} />
       </Switch>
+      <Footer />
     </div>
   );
 }
