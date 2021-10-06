@@ -63,3 +63,8 @@ p {
 img {
   max-width: 100%;
 }
+
+.container-xxl {
+  padding-left: 5%;
+  padding-right: 5%;
+}

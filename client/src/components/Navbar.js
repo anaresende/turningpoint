@@ -152,7 +152,10 @@ function Navbar() {
                 </div>
               )}
               <Link className="Navbar-nav-link" to="/user/my-goals">
-                My Goals
+                objcetivos
+              </Link>
+              <Link className="Navbar-nav-link" to="/user/my-invoices">
+                documentos
               </Link>
               {isAdmin && (
                 <Link className="Navbar-nav-link" to="/admin">
