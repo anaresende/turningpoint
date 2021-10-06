@@ -7,10 +7,10 @@ import LoginPage from "./pages/LoginPage";
 import ErrorPage from "./pages/ErrorPage";
 import MyGoals from "./pages/MyGoals";
 import Welcome from "./pages/Welcome";
-import Profile from "./pages/Profile";
+import ProfilePage from "./pages/ProfilePage";
 import AdminPage from "./pages/AdminPage";
 import DanceClassPage from "./pages/DanceClassPage";
-import Invoices from "./pages/InvoicesPage";
+import InvoicesPage from "./pages/InvoicesPage";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -51,8 +51,12 @@ function App() {
           <Route path="/auth/confirm/:confirmationCode" component={Welcome} />
 
           {/* 👇 UPDATE THE EXISTING ROUTES 👇  */}
-          <PrivateRoute exact path="/user" component={Profile} />
-          <PrivateRoute exact path="/user/my-invoices" component={Invoices} />
+          <PrivateRoute exact path="/user" component={ProfilePage} />
+          <PrivateRoute
+            exact
+            path="/user/my-invoices"
+            component={InvoicesPage}
+          />
           <PrivateRoute path="/dance-class/:id" component={DanceClassPage} />
           <PrivateRoute exact routeAdmin path="/admin" component={AdminPage} />
           <PrivateRoute exact path="/user/my-goals" component={MyGoals} />

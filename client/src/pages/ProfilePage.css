@@ -1,0 +1,27 @@
+.Profile {
+  background-color: var(--color-background);
+  flex-grow: 1;
+  padding-top: 75px;
+  padding-bottom: 75px;
+}
+
+.Profile-picture {
+  position: relative;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.Profile-picture img {
+  width: 100%;
+  margin-top: -20px;
+}
+
+.Profile-title span {
+  text-transform: capitalize;
+}
+
+.Profile-information p {
+  color: var(--color-orange);
+}

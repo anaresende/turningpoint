@@ -26,7 +26,17 @@ body {
 h1,
 h2,
 h3,
-h4 {
+h4,
+h5,
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
   font-weight: 700;
 }
 
@@ -54,9 +64,15 @@ h4 {
   letter-spacing: 0.04em;
 }
 
+h5 {
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0.04em;
+}
+
 p {
-  font-size: 16px;
-  line-height: 26px;
+  font-size: 14px;
+  line-height: 20px;
   letter-spacing: 0.04em;
 }
 
@@ -67,4 +83,16 @@ img {
 .container-xxl {
   padding-left: 5%;
   padding-right: 5%;
+}
+
+.button-primary {
+  background-color: var(--color-rose);
+  color: var(--color-background);
+  border: none;
+  padding: 6px 16px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.button-primary:hover {
+  background-color: var(--color-orange);
 }
