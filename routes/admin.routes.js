@@ -12,11 +12,9 @@ router.get("/", isAuthenticated, async (req, res, next) => {
   const user = req.payload;
 
   if (user.role !== "admin") {
-    res.status(401).json({
+    return res.status(401).json({
       message: "Permissão só para o Admin",
     });
-
-    return;
   }
 
   const classes = await DanceClass.find()

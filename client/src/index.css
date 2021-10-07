@@ -96,3 +96,17 @@ img {
 .button-primary:hover {
   background-color: var(--color-orange);
 }
+
+.button-secondary {
+  background-color: var(--color-background);
+  color: var(--color-rose);
+  border: none;
+  padding: 6px 16px;
+  transition: background-color 0.3s ease-in-out;
+  border-radius: 0%;
+}
+
+.button-secondary:hover {
+  background-color: var(--color-orange);
+  color: var(--color-background);
+}

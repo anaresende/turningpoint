@@ -40,6 +40,7 @@ function AuthProviderWrapper(props) {
   };
 
   const logInUser = (token) => {
+    localStorage.removeItem("authToken");
     localStorage.setItem("authToken", token);
     console.log("entrou no login user");
     verifyStoredToken();

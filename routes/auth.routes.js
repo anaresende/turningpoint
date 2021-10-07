@@ -71,7 +71,6 @@ router.post("/signup", fileUploader.single("avatarUrl"), (req, res, next) => {
             danceClassesIds = danceClass.split(",");
           }
 
-          console.log("dance class", danceClass, danceClassesIds);
           // If VAT is unique, proceed to hash the password
           const salt = bcrypt.genSaltSync(saltRounds);
           const hashedPassword = bcrypt.hashSync(password, salt);
@@ -227,12 +226,10 @@ router.get("/confirm/:confirmationCode", (req, res, next) => {
 
       user.status = "Active";
       user.save((err) => {
-        console.log("foi saved", err);
         if (err) {
-          res.status(500).send({ message: err });
-          r;
+          return res.status(500).send({ message: err });
         }
-        res
+        return res
           .status(200)
           .json({ message: "Autenticação concluída! Por favor faça login." });
       });

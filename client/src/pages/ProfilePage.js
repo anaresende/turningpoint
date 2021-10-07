@@ -1,7 +1,8 @@
 import "./ProfilePage.css";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
+import EditProfile from "../components/EditProfile";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -41,15 +42,23 @@ const Profile = (props) => {
             </div>
             <div className="Profile-information mt-3">
               <p>Modalidades</p>
-              {user.danceClass.map(({ style, level }) => {
+              {user?.danceClass?.map(({ _id, style, level }) => {
                 return (
-                  <h5>
+                  <h5 key={_id}>
                     {style} {level}
                   </h5>
                 );
               })}
             </div>
-            <button className="mt-3 button-primary">Editar Perfil</button>
+            <button
+              className="mt-3 button-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#modalEditProfile"
+            >
+              Editar Perfil
+            </button>
+
+            <EditProfile />
           </div>
         </div>
       </div>

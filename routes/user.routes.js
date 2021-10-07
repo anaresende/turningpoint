@@ -1,9 +1,15 @@
 const express = require("express");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 const MoloniApi = require("../api/moloni");
 const Goal = require("../models/goalmodel");
 const DanceClass = require("../models/danceclassmodel");
 const MediaContent = require("../models/mediacontentmodel");
+const User = require("../models/usermodel");
+const fileUploader = require("../config/cloudinary.config");
+
+const saltRounds = 10;
 
 const { isAuthenticated } = require("./../middleware/jwt.middleware.js");
 
@@ -158,19 +164,131 @@ router.get("/add-my-class", (req, res) => {
 });
 
 router.get("/dance-class/:danceClassId", isAuthenticated, (req, res, next) => {
-  const user = req.payload;
   const { danceClassId } = req.params;
 
-  return MediaContent.find({
-    danceClass: danceClassId,
-  })
-    .populate("danceClass")
-    .then((media) => {
-      return res.status(200).json(media);
+  return DanceClass.find({ _id: danceClassId })
+    .then((danceClass) => {
+      return MediaContent.find({
+        danceClass: danceClassId,
+      })
+        .populate("danceClass")
+        .then((media) => {
+          return res.status(200).json({ media, danceClass: danceClass[0] });
+        })
+        .catch((err) => {
+          return res.status(500).json({ message: "Internal Server Error" });
+        });
     })
     .catch((err) => {
-      return res.status(500).json({ message: "Internal Server Error" });
+      return { message: "not found classes" };
     });
 });
+
+// POST  /auth/login - Verifies email and password and returns a JWT
+router.post(
+  "/edit/:userId",
+  fileUploader.single("avatarUrl"),
+  (req, res, next) => {
+    const { username, oldPassword, newPassword, danceClass } = req.body;
+    const avatarUrl = req.file?.path;
+    const { userId } = req.params;
+
+    // Check if email or password are provided as empty string
+    if (username === "") {
+      return res.status(500).json({
+        message: "Por favor indique o seu nome de utilizador.",
+      });
+    }
+
+    // Check the users collection if a user with the same email exists
+    return User.findOne({ _id: userId })
+      .populate("danceClass")
+      .then((foundUser) => {
+        if (!foundUser) {
+          // If the user is not found, send an error response
+          return res
+            .status(500)
+            .json({ message: "Utilizador não encontrado." });
+        }
+
+        if (oldPassword !== "" && newPassword !== "") {
+          const passwordCorrect = bcrypt.compareSync(
+            oldPassword,
+            foundUser.password
+          );
+
+          if (passwordCorrect) {
+            const salt = bcrypt.genSaltSync(saltRounds);
+            const hashedNewPassword = bcrypt.hashSync(newPassword, salt);
+
+            foundUser.password = hashedNewPassword;
+          } else {
+            return res.status(500).json({ message: "Password Incorreta" });
+          }
+        }
+
+        if (avatarUrl) {
+          foundUser.avatarUrl = avatarUrl;
+        }
+
+        let danceClassesIds = null;
+        if (danceClass !== "") {
+          danceClassesIds = danceClass.split(",");
+        }
+
+        foundUser.username = username;
+        foundUser.danceClass = danceClassesIds;
+        foundUser.save((err, userSaved) => {
+          if (err) {
+            return res.status(500).send({ message: err });
+          }
+          return User.findOne({ _id: userSaved._id })
+            .populate("danceClass")
+            .then((userPopulated) => {
+              // Deconstruct the user object to omit the password
+              const {
+                _id,
+                username,
+                customer_id,
+                email,
+                avatarUrl,
+                role,
+                danceClass,
+                address,
+                city,
+                phone,
+              } = userPopulated;
+
+              // Create an object that will be set as the token payload
+              const payload = {
+                _id,
+                username,
+                customer_id,
+                email,
+                avatarUrl,
+                role,
+                danceClass,
+                address,
+                city,
+                phone,
+              };
+
+              // Create and sign the token
+              const authToken = jwt.sign(payload, process.env.JWT_SECRET, {
+                algorithm: "HS256",
+                expiresIn: "6h",
+              });
+
+              // Send the token as the response
+              return res.status(200).json({ authToken: authToken });
+            })
+            .catch((e) =>
+              res.status(500).json({ message: "Internal Server Error" })
+            );
+        });
+      })
+      .catch((e) => res.status(500).json({ message: "Internal Server Error" }));
+  }
+);
 
 module.exports = router;

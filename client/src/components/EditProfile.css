@@ -1,0 +1,11 @@
+.modal-labels {
+  color: var(--color-orange);
+  padding-top: 15px;
+  padding-bottom: 5px;
+}
+
+.modal-option-class {
+  color: var(--color-rose);
+  padding-right: 15px;
+  padding-bottom: 10px;
+}
