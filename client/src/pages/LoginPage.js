@@ -3,18 +3,24 @@ import SignupForm from "../components/SignupForm";
 
 function LoginPage(props) {
   return (
-    <div className="LoginPage">
-      <div className="container-xxl mt-5 pt-5">
+    <section className="LoginPage">
+      <div className="container-xxl">
         <div className="row">
           <div className="col-6">
-            <SignupForm />
-          </div>
-          <div className="col-6 ps-5 border-start">
             <LoginForm />
+            <button
+              type="button"
+              className="button-secondary mt-5"
+              data-bs-toggle="modal"
+              data-bs-target="#registerModal"
+            >
+              criar conta
+            </button>
+            <SignupForm />
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

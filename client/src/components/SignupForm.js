@@ -9,9 +9,12 @@ function SignupForm(props) {
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [classes, setClasses] = useState([]);
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    const closeModal = document.getElementById("button-dismiss-modal-register");
     const form = e.currentTarget;
     const danceClass = Object.keys(classes)
       .map((style) => {
@@ -34,8 +37,14 @@ function SignupForm(props) {
     // If the request resolves with an error, set the error message in the state
     axios
       .post(`${API_URL}/auth/signup`, formData)
-      .then((response) => history.push("/confirm-email"))
+      .then((response) => {
+        setIsLoading(false);
+        closeModal.click();
+        history.push("/confirm-email");
+      })
       .catch((error) => {
+        setIsLoading(false);
+
         const errorDescription = error?.response?.data?.message || "Error";
         console.log("error front", error?.response);
         setErrorMessage(errorDescription);
@@ -58,57 +67,105 @@ function SignupForm(props) {
 
   return (
     <div className="SignupForm">
-      <h4>
-        És nosso aluno e ainda não tens conta? <br />
-        Regista-te!
-      </h4>
+      <div
+        className="modal fade"
+        id="registerModal"
+        tabIndex="-1"
+        aria-labelledby="registerModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="registerModalLabel">
+                És nosso aluno e ainda não tens conta? <br />
+                Regista-te!
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <form onSubmit={handleSignupSubmit}>
+              <div className="modal-body">
+                <label>Foto:</label>
+                <input type="file" name="avatarUrl" id="avatarUrl" />
+                <br />
+                <label>Número de Contribuinte:</label>
+                <input
+                  type="text"
+                  name="vat"
+                  minLength="9"
+                  maxLength="9"
+                  required
+                />
+                <br />
+                <label>Username:</label>
+                <input type="text" name="username" required />
+                <br />
+                <label>Email:</label>
+                <input type="text" name="email" required />
+                <br />
+                <label>Password:</label>
+                <input type="password" name="password" required />
+                <br />
+                {classes && <label>Modalidades:</label>}
+                {Object.keys(classes).map((style) => {
+                  const styles = classes[style];
 
-      <form onSubmit={handleSignupSubmit}>
-        <label>Foto:</label>
-        <input type="file" name="avatarUrl" id="avatarUrl" />
-        <br />
-        <label>Número de Contribuinte:</label>
-        <input type="text" name="vat" minLength="9" maxLength="9" required />
-        <br />
-        <label>Username:</label>
-        <input type="text" name="username" required />
-        <br />
-        <label>Email:</label>
-        <input type="text" name="email" required />
-        <br />
-        <label>Password:</label>
-        <input type="password" name="password" required />
-        <br />
-        {classes && <label>Modalidades:</label>}
-        {Object.keys(classes).map((style) => {
-          const styles = classes[style];
-
-          return (
-            <div key={style}>
-              <label htmlFor={`${style}-select`}>{style}</label>
-              <select name={style} id={`${style}-select`} defaultValue="">
-                <option value="">-- escolhe aqui --</option>
-
-                {Object.keys(styles).map((index) => {
-                  const classLevel = styles[index];
                   return (
-                    <option key={classLevel._id} value={classLevel._id}>
-                      {classLevel.level}
-                    </option>
+                    <div key={style}>
+                      <label htmlFor={`${style}-select`}>{style}</label>
+                      <select
+                        name={style}
+                        id={`${style}-select`}
+                        defaultValue=""
+                      >
+                        <option value="">-- escolhe aqui --</option>
+
+                        {Object.keys(styles).map((index) => {
+                          const classLevel = styles[index];
+                          return (
+                            <option key={classLevel._id} value={classLevel._id}>
+                              {classLevel.level}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
                   );
                 })}
-              </select>
-            </div>
-          );
-        })}
-        <br />
-
-        <button type="submit">Regista-te!</button>
-      </form>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-      <p>Ainda não és aluno da nossa escola?</p>
-      <Link to={"/contacts"}>Contacta-nos!</Link>
+                {errorMessage && (
+                  <p className="error-message">{errorMessage}</p>
+                )}
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  id="button-dismiss-modal-register"
+                  className="button-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="submit" className="button-primary">
+                  {isLoading && (
+                    <div
+                      className="spinner-border spinner-border-sm me-2"
+                      role="status"
+                    >
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                  )}
+                  Regista-te
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

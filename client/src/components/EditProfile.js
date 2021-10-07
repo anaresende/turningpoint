@@ -44,6 +44,7 @@ function EditProfile() {
       .catch((error) => {
         const errorDescription = error?.response?.data?.message || "Error";
         setErrorMessage(errorDescription);
+        setIsLoading(false);
       });
   };
 
@@ -158,7 +159,7 @@ function EditProfile() {
             <div className="modal-footer">
               <button
                 type="button"
-                className="btn button-secondary"
+                className="button-secondary"
                 data-bs-dismiss="modal"
                 id="button-dismiss-modal"
               >
