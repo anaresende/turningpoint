@@ -14,8 +14,6 @@ function AuthProviderWrapper(props) {
   const verifyStoredToken = () => {
     const storedToken = localStorage.getItem("authToken");
 
-    console.log("auth token storage", storedToken);
-
     if (storedToken) {
       axios
         .get(`${API_URL}/auth/verify`, {
@@ -42,7 +40,6 @@ function AuthProviderWrapper(props) {
   const logInUser = (token) => {
     localStorage.removeItem("authToken");
     localStorage.setItem("authToken", token);
-    console.log("entrou no login user");
     verifyStoredToken();
   };
 

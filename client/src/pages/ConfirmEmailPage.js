@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
-const NotFound = () => (
+const ConfirmEmailPage = () => (
   <div className="container centered-container">
-    <h3>oops, esta página não existe</h3>
+    <h3>Por favor confirme o seu email</h3>
     <Link className="styled-link" to="/">
       Voltar para a página principal
     </Link>
   </div>
 );
 
-export default NotFound;
+export default ConfirmEmailPage;

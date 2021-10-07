@@ -10,11 +10,11 @@ const Welcome = (props) => {
   }
 
   return (
-    <div className="container">
-      <h1>
-        <strong>Account confirmed!</strong>
-      </h1>
-      <Link to={"/login"}>Please Login</Link>
+    <div className="container centered-container">
+      <h3>conta confirmada</h3>
+      <Link className="styled-link" to="/login">
+        fazer login
+      </Link>
     </div>
   );
 };

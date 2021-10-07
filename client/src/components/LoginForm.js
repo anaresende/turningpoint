@@ -21,47 +21,56 @@ function LoginForm(props) {
     e.preventDefault();
     const requestBody = { username, password };
 
-    console.log(requestBody);
     axios
       .post(`${API_URL}/auth/login`, requestBody)
       .then((response) => {
-        console.log("JWT token", response.data.authToken);
-
         const token = response.data.authToken;
         logInUser(token);
         history.push("/");
       })
       .catch((error) => {
         const errorDescription = error?.response?.data?.message || "Error";
-        console.log("error front", error?.response);
         setErrorMessage(errorDescription);
       });
   };
 
   return (
     <div className="LoginForm">
-      <h4>Bem-vindo de volta!</h4>
+      <h4 className="mb-3">Bem-vindo de volta!</h4>
 
       <form onSubmit={handleLoginSubmit}>
-        <label>Username:</label>
-        <input
-          type="text"
-          name="vat"
-          value={username}
-          onChange={handleUsername}
-        />
-        <br />
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handlePassword}
-        />
+        <div className="mb-3">
+          <label htmlFor="login-username" className="form-label">
+            username
+          </label>
+          <input
+            id="login-username"
+            type="text"
+            name="vat"
+            className="form-control"
+            value={username}
+            onChange={handleUsername}
+          />
+        </div>
+        <div className="mb-2">
+          <label htmlFor="login-password" className="form-label">
+            password
+          </label>
+          <input
+            id="login-password"
+            type="password"
+            name="password"
+            className="form-control"
+            value={password}
+            onChange={handlePassword}
+          />
+        </div>
+        <p className="error-message">{errorMessage && errorMessage}</p>
 
-        <button type="submit">Login</button>
+        <button className="button-primary mt-3 mx-auto d-block" type="submit">
+          Login
+        </button>
       </form>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 }

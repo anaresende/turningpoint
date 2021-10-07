@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "./../context/auth.context";
 import { useHistory } from "react-router-dom";
 import { Redirect, Route } from "react-router-dom";
+import Loading from "./Loading";
 
 function PrivateRoute(props) {
   const { to, exact, component: Component, routeAdmin, ...restProps } = props;
@@ -9,7 +10,7 @@ function PrivateRoute(props) {
   const { isLoggedIn, isLoading, isAdmin } = useContext(AuthContext);
 
   // If the authentication is still loading ⏳
-  if (isLoading) return <p>Loading ...</p>;
+  if (isLoading) return <Loading />;
 
   if (!isLoggedIn) return <Redirect to="/login" />;
 

@@ -9,7 +9,6 @@ function Navbar() {
   // the values from AuthContext.Provider `value` prop
   const { isLoggedIn, user, logOutUser, isAdmin } = useContext(AuthContext);
 
-  console.log("user", user);
   return (
     <header className="Navbar-nav">
       <nav className="container-xxl">

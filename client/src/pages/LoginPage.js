@@ -4,18 +4,21 @@ import SignupForm from "../components/SignupForm";
 function LoginPage(props) {
   return (
     <section className="LoginPage">
-      <div className="container-xxl">
-        <div className="row">
-          <div className="col-6">
+      <div className="container-xxl ">
+        <div className="row justify-content-center">
+          <div className="col-4">
             <LoginForm />
-            <button
-              type="button"
-              className="button-secondary mt-5"
-              data-bs-toggle="modal"
-              data-bs-target="#registerModal"
-            >
-              criar conta
-            </button>
+            <div className="text-center">
+              <p className="mt-4">és nosso aluno e não estás registado ?</p>
+              <button
+                type="button"
+                className="styled-link mt-1 mx-auto"
+                data-bs-toggle="modal"
+                data-bs-target="#registerModal"
+              >
+                criar conta
+              </button>
+            </div>
             <SignupForm />
           </div>
         </div>

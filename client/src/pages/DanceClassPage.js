@@ -32,13 +32,15 @@ function DanceClass(props) {
   console.log(danceClassContent, danceClass);
   return (
     <section className="DanceClass">
-      <div className="container-xxl py-5">
+      <div className="container-xxl centered-container py-5">
         {danceClass && (
           <h3>
             {danceClass.style} - {danceClass.level}
           </h3>
         )}
-        {danceClassContent.length === 0 && <h5>Sem conteudo</h5>}
+        {danceClassContent.length === 0 && (
+          <h5 className="mt-2">Sem conteúdo</h5>
+        )}
         {danceClassContent.map((media) => {
           return (
             <div>

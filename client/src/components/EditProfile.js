@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
-import { useHistory } from "react-router-dom";
-import "./EditProfile.css";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -70,8 +68,8 @@ function EditProfile() {
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div className="modal-dialog">
-        <div className="modal-content">
+      <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <form onSubmit={handleEditProfileSubmit} className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLabel">
               Editar Perfil
@@ -83,83 +81,96 @@ function EditProfile() {
               aria-label="Close"
             ></button>
           </div>
-          <form onSubmit={handleEditProfileSubmit}>
-            <div className="modal-body">
-              <label>
-                <p className="modal-labels">Foto:</p>
+          <div className="modal-body">
+            <div className="mb-3">
+              <label htmlFor="avatarUrl" className="form-label">
+                foto de perfil
               </label>
-              <br />
-              <input type="file" name="avatarUrl" id="avatarUrl" />
-              <br />
-              <label>
-                <p className="modal-labels">Username:</p>
-              </label>
-              <br />
               <input
+                type="file"
+                name="avatarUrl"
+                id="avatarUrl"
+                className="form-control"
+              />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="edit-username" className="form-label">
+                username
+              </label>
+              <input
+                className="form-control"
                 type="text"
+                id="edit-username"
                 name="username"
                 defaultValue={user.username}
                 required
               />
-              <br />
-              <label>
-                <p className="modal-labels">Antiga Password:</p>
-              </label>
-              <br />
-              <input type="password" name="oldPassword" />
-              <br />
-              <label>
-                <p className="modal-labels">Nova Password:</p>
-              </label>
-              <br />
-              <input type="password" name="newPassword" />
-              <br />
-              {classes && (
-                <label>
-                  <p className="modal-labels">Modalidades:</p>
-                </label>
-              )}
-              {Object.keys(classes).map((style) => {
-                const styles = classes[style];
-
-                const defaultValue = user.danceClass.find(
-                  (item) => item.style === style
-                );
-
-                return (
-                  <div key={style}>
-                    <label
-                      className="modal-option-class"
-                      htmlFor={`${style}-select`}
-                    >
-                      {style}
-                    </label>
-                    <select
-                      name={style}
-                      id={`${style}-select`}
-                      defaultValue={defaultValue?._id}
-                    >
-                      <option value="">-- escolhe aqui --</option>
-
-                      {Object.keys(styles).map((index) => {
-                        const classLevel = styles[index];
-                        return (
-                          <option key={classLevel._id} value={classLevel._id}>
-                            {classLevel.level}
-                          </option>
-                        );
-                      })}
-                    </select>
-                    <br />
-                  </div>
-                );
-              })}
-              {errorMessage && <p className="error-message">{errorMessage}</p>}
             </div>
-            <div className="modal-footer">
+            <div className="mb-3">
+              <label htmlFor="edit-old-password" className="form-label">
+                antiga password
+              </label>
+              <input
+                className="form-control"
+                type="password"
+                name="oldPassword"
+                id="edit-old-password"
+              />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="edit-new-password" className="form-label">
+                nova password
+              </label>
+              <input
+                className="form-control"
+                type="password"
+                htmlFor="edit-new-password"
+                name="newPassword"
+              />
+            </div>
+
+            {classes && <h5 className="mb-1">modalidades</h5>}
+            {Object.keys(classes).map((style) => {
+              const styles = classes[style];
+
+              const defaultValue = user.danceClass.find(
+                (item) => item.style === style
+              );
+
+              return (
+                <div className="mb-3" key={style}>
+                  <label className="form-label" htmlFor={`${style}-select`}>
+                    {style}
+                  </label>
+                  <select
+                    className="form-select"
+                    name={style}
+                    id={`${style}-select`}
+                    defaultValue={defaultValue?._id}
+                  >
+                    <option value="">-- escolhe aqui --</option>
+
+                    {Object.keys(styles).map((index) => {
+                      const classLevel = styles[index];
+                      return (
+                        <option key={classLevel._id} value={classLevel._id}>
+                          {classLevel.level}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              );
+            })}
+          </div>
+          <div className="modal-footer">
+            <p className="error-message">{errorMessage && errorMessage}</p>
+            <div>
               <button
                 type="button"
-                className="button-secondary"
+                className="button-secondary me-2"
                 data-bs-dismiss="modal"
                 id="button-dismiss-modal"
               >
@@ -177,10 +188,9 @@ function EditProfile() {
                 )}
                 Editar
               </button>
-              <br />
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   );

@@ -10,7 +10,6 @@ function MyGoal({ addNewGoal }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newGoal = { title, plan };
-    console.log("submited", newGoal);
 
     addNewGoal(newGoal);
 

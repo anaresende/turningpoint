@@ -2,7 +2,7 @@
   --color-rose: #f6aa91;
   --color-orange: #ea5e53;
   --color-background: #f6f2f0;
-
+  --color-background-input: rgba(246, 242, 240, 0.4);
   --height-header: 100px;
   --height-footer: 120px;
 }
@@ -80,6 +80,19 @@ img {
   max-width: 100%;
 }
 
+.styled-link {
+  background: none;
+  border: none;
+  padding: 0;
+  text-decoration: none;
+  color: var(--color-rose);
+  transition: all 0.3s ease-in-out;
+}
+
+.styled-link:hover {
+  color: var(--color-orange);
+}
+
 .container-xxl {
   padding-left: 5%;
   padding-right: 5%;
@@ -109,4 +122,43 @@ img {
 .button-secondary:hover {
   background-color: var(--color-orange);
   color: var(--color-background);
+}
+
+.centered-container {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.error-message {
+  color: var(--color-orange);
+  font-size: 12px;
+  line-height: 15px;
+  min-height: 15px;
+}
+
+.form-label {
+  color: var(--color-rose);
+}
+
+.form-control,
+.form-select {
+  background-color: var(--color-background-input);
+  border-radius: 0;
+  border: none;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.form-control:focus,
+.form-select:focus {
+  box-shadow: none;
+  background-color: rgba(246, 242, 240, 0.8);
+}
+
+.form-control:hover,
+.form-select:hover {
+  box-shadow: none;
+  background-color: rgba(246, 242, 240, 0.8);
 }

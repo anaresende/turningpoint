@@ -11,6 +11,7 @@ import ProfilePage from "./pages/ProfilePage";
 import AdminPage from "./pages/AdminPage";
 import DanceClassPage from "./pages/DanceClassPage";
 import InvoicesPage from "./pages/InvoicesPage";
+import ConfirmEmailPage from "./pages/ConfirmEmailPage";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -44,10 +45,7 @@ function App() {
             path="/competition"
             component={() => <h1>Grupo de competição</h1>}
           />
-          <Route
-            path="/confirm-email"
-            component={() => <h1>Por favor confirme o seu email</h1>}
-          />
+          <Route path="/confirm-email" component={ConfirmEmailPage} />
           <Route path="/auth/confirm/:confirmationCode" component={Welcome} />
 
           {/* 👇 UPDATE THE EXISTING ROUTES 👇  */}

@@ -4,11 +4,9 @@ import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 import EditProfile from "../components/EditProfile";
 
-const API_URL = process.env.REACT_APP_API_URL;
-
 const Profile = (props) => {
   const { user } = useContext(AuthContext);
-  console.log(user);
+
   return (
     <section className="Profile">
       <div className="container">

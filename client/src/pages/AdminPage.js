@@ -153,7 +153,7 @@ const AdminPage = (props) => {
             <br />
             <br />
             <button type="submit">Inserir Media</button>
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
+            <p className="error-message">{errorMessage && errorMessage}</p>
           </form>
         </>
       )}
