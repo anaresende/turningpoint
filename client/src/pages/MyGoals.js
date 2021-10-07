@@ -1,5 +1,6 @@
+import "./MyGoals.css";
 import { useState, useContext, useEffect } from "react";
-import MyGoal from "../components/MyGoalForm";
+import AddMyGoal from "../components/AddMyGoal";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
 import EditMyGoal from "../components/EditMyGoal";
@@ -8,11 +9,15 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 function MyGoals() {
   const [goals, setGoals] = useState([]);
-  const [editMode, setEditMode] = useState(null);
-  const [addMode, setAddMode] = useState(null);
+  const [editMode, setEditMode] = useState(false);
+  const [addMode, setAddMode] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   const { user } = useContext(AuthContext);
 
   const addNewGoal = (newGoal) => {
+    setIsLoading(true);
+
     axios
       .post(`${API_URL}/user/add-my-goal`, {
         title: newGoal.title,
@@ -21,10 +26,18 @@ function MyGoals() {
       })
       .then((response) => {
         setAddMode(false);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        const errorDescription = error?.response?.data?.message || "Error";
+        setErrorMessage(errorDescription);
+        setIsLoading(false);
       });
   };
 
-  const handleEditGoal = (editGoal) => {
+  const handleEditGoal = (editGoal, closeModal) => {
+    setIsLoading(true);
+
     axios
       .post(
         `${API_URL}/user/edit-my-goal`,
@@ -40,12 +53,20 @@ function MyGoals() {
         }
       )
       .then((response) => {
-        console.log(response);
-        setEditMode(null);
+        setEditMode(false);
+        setIsLoading(false);
+        closeModal.click();
+      })
+      .catch((error) => {
+        const errorDescription = error?.response?.data?.message || "Error";
+        setErrorMessage(errorDescription);
+        setIsLoading(false);
       });
   };
 
-  const handleDeleteGoal = (goal) => {
+  const handleDeleteGoal = (goal, closeModal) => {
+    setIsLoading(true);
+
     axios
       .post(
         `${API_URL}/user/delete-my-goal`,
@@ -61,7 +82,14 @@ function MyGoals() {
         }
       )
       .then((response) => {
-        setEditMode(null);
+        setEditMode(false);
+        setIsLoading(false);
+        closeModal.click();
+      })
+      .catch((error) => {
+        const errorDescription = error?.response?.data?.message || "Error";
+        setErrorMessage(errorDescription);
+        setIsLoading(false);
       });
   };
 
@@ -82,36 +110,55 @@ function MyGoals() {
   };
 
   return (
-    <div>
-      {!editMode && !addMode && (
+    <section className="MyGoals">
+      <div className="container-xxl">
         <div>
-          <h1>Os meus objectivos</h1>
-          {goals.map(({ title, plan, _id }) => {
-            return (
-              <div key={title}>
-                {title}
-                <button onClick={() => handleActiveEdit({ title, plan, _id })}>
-                  editar
-                </button>
-              </div>
-            );
-          })}
-          <br />
-          <br />
-          <button onClick={() => setAddMode(true)}>Criar Objetivo</button>
-          <br />
-          <br />
+          <h2>Os meus objectivos</h2>
+          <div className="row row-cols-auto mt-5">
+            {goals.map(({ title, plan, _id }) => {
+              return (
+                <div className="col-12 col-md-6 pb-4" key={title}>
+                  <div className="MyGoals-item p-4">
+                    <h5>{title}</h5>
+                    <p>{plan}</p>
+                    <button
+                      className="button-secondary"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalEditMyGoal"
+                      onClick={() => handleActiveEdit({ title, plan, _id })}
+                    >
+                      editar
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <button
+            className="mt-3 button-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#modalAddMyGoal"
+            onClick={() => setAddMode(true)}
+          >
+            Criar Objetivo
+          </button>
         </div>
-      )}
-      {!editMode && addMode && <MyGoal addNewGoal={addNewGoal} />}
-      {editMode && !addMode && (
+        <AddMyGoal
+          addNewGoal={addNewGoal}
+          isLoading={isLoading}
+          errorMessage={errorMessage}
+        />
+
         <EditMyGoal
           values={editMode}
           handleEditGoal={handleEditGoal}
           handleDeleteGoal={handleDeleteGoal}
+          isLoading={isLoading}
+          errorMessage={errorMessage}
         />
-      )}
-    </div>
+      </div>
+    </section>
   );
 }
 export default MyGoals;

@@ -162,3 +162,14 @@ img {
   box-shadow: none;
   background-color: rgba(246, 242, 240, 0.8);
 }
+
+.form-control::-webkit-file-upload-button {
+  background-color: var(--color-rose);
+  border: 0;
+  transition: background-color 0.3s ease-in-out;
+  color: var(--color-background);
+}
+
+.form-control:hover::-webkit-file-upload-button {
+  background-color: var(--color-orange) !important;
+}

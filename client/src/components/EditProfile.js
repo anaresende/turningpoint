@@ -13,6 +13,9 @@ function EditProfile() {
 
   const handleEditProfileSubmit = (e) => {
     e.preventDefault();
+    const closeModal = document.getElementById(
+      "button-dismiss-modal-edit-profile"
+    );
     setIsLoading(true);
     const form = e.currentTarget;
     const danceClass = Object.keys(classes)
@@ -37,7 +40,7 @@ function EditProfile() {
         const token = response.data.authToken;
         logInUser(token);
         setIsLoading(false);
-        document.getElementById("button-dismiss-modal").click();
+        closeModal.click();
       })
       .catch((error) => {
         const errorDescription = error?.response?.data?.message || "Error";
@@ -172,9 +175,9 @@ function EditProfile() {
                 type="button"
                 className="button-secondary me-2"
                 data-bs-dismiss="modal"
-                id="button-dismiss-modal"
+                id="button-dismiss-modal-edit-profile"
               >
-                Close
+                Cancelar
               </button>
 
               <button type="submit" className="button-primary">
