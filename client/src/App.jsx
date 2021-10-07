@@ -12,6 +12,9 @@ import AdminPage from "./pages/AdminPage";
 import DanceClassPage from "./pages/DanceClassPage";
 import InvoicesPage from "./pages/InvoicesPage";
 import ConfirmEmailPage from "./pages/ConfirmEmailPage";
+import TeachersPage from "./pages/TeachersPage";
+import AboutPage from "./pages/AboutPage";
+import DanceStylesPage from "./pages/DanceStylesPage";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -19,27 +22,23 @@ import PrivateRoute from "./components/PrivateRoute";
 import AnonRoute from "./components/AnonRoute";
 import Footer from "./components/Footer";
 
+import ScrollToTop from "./components/ScrollToTop";
+
 function App() {
   return (
     <div className="App">
+      <ScrollToTop />
       <Navbar />
       <main className="App-main">
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/about" component={() => <h1>Sobre Nós</h1>} />
-          <Route
-            exact
-            path="/dance-styles"
-            component={() => <h1>Modalidades</h1>}
-          />
-          <Route exact path="/schedules" component={() => <h1>Horários</h1>} />
-          <Route
-            exact
-            path="/teachers"
-            component={() => <h1>Professores</h1>}
-          />
+          <Route exact path="/about" component={AboutPage} />
+          <Route exact path="/teachers" component={TeachersPage} />
           <Route exact path="/gallery" component={() => <h1>Galeria</h1>} />
           <Route exact path="/contacts" component={() => <h1>Contactos</h1>} />
+
+          <Route path="/dance-styles" component={DanceStylesPage} />
+          <Route exact path="/schedules" component={() => <h1>Horários</h1>} />
           <Route
             exact
             path="/competition"

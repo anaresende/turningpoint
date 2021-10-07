@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 import "./Navbar.css";
 import logoTurningPoint from "./../assets/images/logo-turningpoint.png";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
 import { AuthContext } from "./../context/auth.context";
 
 function Navbar() {
@@ -58,52 +59,58 @@ function Navbar() {
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li>
-                <Link
+                <HashLink
                   className="dropdown-item Navbar-nav-link"
                   to="/dance-styles#ballet"
+                  smooth
                 >
                   ballet
-                </Link>
+                </HashLink>
               </li>
               <li>
-                <Link
+                <HashLink
                   className="dropdown-item Navbar-nav-link"
                   to="/dance-styles#contemporaneo"
+                  smooth
                 >
                   contemporâneo
-                </Link>
+                </HashLink>
               </li>
               <li>
-                <Link
+                <HashLink
                   className="dropdown-item Navbar-nav-link"
                   to="/dance-styles#commercial"
+                  smooth
                 >
                   commercial
-                </Link>
+                </HashLink>
               </li>
               <li>
-                <Link
+                <HashLink
                   className="dropdown-item Navbar-nav-link"
                   to="/dance-styles#jazz"
+                  smooth
                 >
                   jazz
-                </Link>
+                </HashLink>
               </li>
               <li>
-                <Link
+                <HashLink
                   className="dropdown-item Navbar-nav-link"
                   to="/dance-styles#latinas"
+                  smooth
                 >
                   latinas
-                </Link>
+                </HashLink>
               </li>
               <li>
-                <Link
+                <HashLink
                   className="dropdown-item Navbar-nav-link"
-                  to="/dance-styles#pilates-clinico"
+                  to="/dance-styles#pilates"
+                  smooth
                 >
                   pilates clínico
-                </Link>
+                </HashLink>
               </li>
             </ul>
           </div>

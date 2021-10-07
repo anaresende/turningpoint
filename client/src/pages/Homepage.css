@@ -32,14 +32,6 @@
   padding-bottom: 50px;
 }
 
-.Homepage-eventext {
-  padding-left: 50px;
-}
-
-.Homepage-oddtext {
-  padding-right: 50px;
-}
-
 .Homepage-callAction {
   height: 300px;
   background-color: var(--color-rose);

@@ -5,6 +5,9 @@
   --color-background-input: rgba(246, 242, 240, 0.4);
   --height-header: 100px;
   --height-footer: 120px;
+
+  /* don't use scroll behavior smooth (default from bootstrap)  */
+  scroll-behavior: auto;
 }
 
 html {
@@ -80,6 +83,32 @@ img {
   max-width: 100%;
 }
 
+h1.text-rose,
+h2.text-rose,
+h3.text-rose,
+h4.text-rose,
+h5.text-rose,
+p.text-rose {
+  color: var(--color-rose);
+}
+
+h1.text-orange,
+h2.text-orange,
+h3.text-orange,
+h4.text-orange,
+h5.text-orange,
+p.text-orange {
+  color: var(--color-orange);
+}
+
+.pt-header {
+  padding-top: var(--height-header) !important;
+}
+
+.pb-header {
+  padding-bottom: var(--height-header) !important;
+}
+
 .styled-link {
   background: none;
   border: none;
@@ -91,6 +120,19 @@ img {
 
 .styled-link:hover {
   color: var(--color-orange);
+}
+
+.styled-link-dark {
+  background: none;
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+  color: var(--color-orange);
+  transition: all 0.3s ease-in-out;
+}
+
+.styled-link-dark:hover {
+  color: var(--color-rose);
 }
 
 .container-xxl {

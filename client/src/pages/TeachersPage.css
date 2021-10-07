@@ -1,0 +1,7 @@
+.TeachersPage {
+  background: var(--color-background);
+}
+
+.TeachersPage h4 {
+  font-weight: 600;
+}

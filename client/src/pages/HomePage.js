@@ -30,7 +30,7 @@ function HomePage() {
           <div className="mt-5 pt-5 pb-5 mt-5 row">
             <div className="col-6">
               <h2>a escola</h2>
-              <p className="Homepage-oddtext">
+              <p className="pe-5">
                 A Turning Point — Escola de Dança é um espaço idealizado e
                 criado por Ana Catarina Resende e Ana Filipa Gual. A escola
                 dispõe de dois estúdios, com um ambiente moderno e descontraído
@@ -48,8 +48,8 @@ function HomePage() {
               <img src={homeModalidades} alt="imagem modalidades" />
             </div>
             <div className="col-6">
-              <h2 className="Homepage-eventext">modalidades</h2>
-              <p className="Homepage-eventext">
+              <h2 className="ps-5">modalidades</h2>
+              <p className="ps-5">
                 A Turning Point — Escola de Dança é um espaço idealizado e
                 criado por Ana Catarina Resende e Ana Filipa Gual. A escola
                 dispõe de dois estúdios, com um ambiente moderno e descontraído
@@ -62,7 +62,7 @@ function HomePage() {
           <div className="mt-5 pt-5 pb-5 mt-5 row">
             <div className="col-6">
               <h2>equipa docente</h2>
-              <p className="Homepage-oddtext">
+              <p className="pe-5">
                 A Turning Point — Escola de Dança é um espaço idealizado e
                 criado por Ana Catarina Resende e Ana Filipa Gual. A escola
                 dispõe de dois estúdios, com um ambiente moderno e descontraído

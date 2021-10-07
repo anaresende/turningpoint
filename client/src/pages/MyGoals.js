@@ -106,23 +106,25 @@ function MyGoals() {
   }, [editMode, addMode]);
 
   const handleActiveEdit = (goalValues) => {
+    console.log(goalValues);
     setEditMode(goalValues);
   };
 
+  console.log(goals);
   return (
     <section className="MyGoals">
-      <div className="container-xxl">
-        <div>
-          <h2>Os meus objectivos</h2>
-          <div className="row row-cols-auto mt-5">
-            {goals.map(({ title, plan, _id }) => {
-              return (
-                <div className="col-12 col-md-6 pb-4" key={title}>
-                  <div className="MyGoals-item p-4">
-                    <h5>{title}</h5>
-                    <p>{plan}</p>
+      <div className="container-xxl mt-5 pt-5 ">
+        <h2 className="text-rose">os meus objectivos</h2>
+        <div className="row row-cols-auto mt-5">
+          {goals.map(({ title, plan, _id }) => {
+            return (
+              <div className="col-12 col-md-6 pb-4" key={title}>
+                <div className="MyGoals-item p-4">
+                  <h5>{title}</h5>
+                  <p className="MyGoals-plan">{plan}</p>
+                  <div className="d-flex justify-content-end">
                     <button
-                      className="button-secondary"
+                      className="styled-link-dark"
                       data-bs-toggle="modal"
                       data-bs-target="#modalEditMyGoal"
                       onClick={() => handleActiveEdit({ title, plan, _id })}
@@ -131,12 +133,20 @@ function MyGoals() {
                     </button>
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            );
+          })}
+        </div>
+        {goals && goals?.length === 0 && (
+          <div className="row mt-5 pt-5">
+            <h3 className="text-orange text-center">
+              pronto para um desafio ?
+            </h3>
           </div>
-
+        )}
+        <div className="row row-cols-auto mt-5">
           <button
-            className="mt-3 button-primary"
+            className="mt-3 mx-auto button-primary"
             data-bs-toggle="modal"
             data-bs-target="#modalAddMyGoal"
             onClick={() => setAddMode(true)}

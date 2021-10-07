@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function EditMyGoal({
   values,
@@ -24,6 +24,11 @@ function EditMyGoal({
     e.preventDefault();
     handleDeleteGoal({ title, plan, _id: values._id }, closeModal);
   };
+
+  useEffect(() => {
+    setTitle(values.title);
+    setPlan(values.plan);
+  }, [values]);
 
   return (
     <div

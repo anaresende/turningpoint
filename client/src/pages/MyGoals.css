@@ -1,4 +1,12 @@
+.MyGoals {
+  flex-grow: 1;
+}
+
 .MyGoals-item {
-  background-color: var(--color-rose);
-  color: var(--color-background);
+  background-color: var(--color-background);
+  color: var(--color-rose);
+}
+
+.MyGoals-plan {
+  white-space: pre-wrap;
 }
