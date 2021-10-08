@@ -4,10 +4,10 @@ import "./TeachersPage.css";
 const TeachersPage = () => (
   <section className="TeachersPage">
     <div className="container-xxl">
-      <div className="mt-5 pt-5 pb-5 mt-5 row">
+      <div className="mt-5 pt-3 pb-5 mt-5 row">
         <h1 className="text-orange">equipa docente</h1>
       </div>
-      <div className="mt-5 pt-5 pb-5 mt-5 row justify-content-between d-flex">
+      <div className="mt-5 pt-3 row justify-content-between d-flex">
         <div className="col-6">
           <h2>Ana Resende</h2>
           <h4 class="text-rose mb-5">ballet clássico, commercial dance</h4>
@@ -23,7 +23,7 @@ const TeachersPage = () => (
           <img src={homeEscola} alt="imagem escola" />
         </div>
       </div>
-      <div className="mt-5 pt-5 pb-5 mt-5 row justify-content-between d-flex">
+      <div className="mt-5 pt-5 pb-5 row justify-content-between d-flex">
         <div className="col-5">
           <img src={homeEscola} alt="imagem modalidades" />
         </div>
@@ -41,7 +41,7 @@ const TeachersPage = () => (
           </p>
         </div>
       </div>
-      <div className="mt-5 pt-5 pb-5 mt-5 row justify-content-between d-flex">
+      <div className="mt-5 pt-5 pb-5 row justify-content-between d-flex">
         <div className="col-6">
           <h2>Márcia Teixeira</h2>
           <h4 class="text-rose mb-5">ballet clássico</h4>
@@ -57,7 +57,7 @@ const TeachersPage = () => (
           <img src={homeEscola} alt="imagem escola" />
         </div>
       </div>
-      <div className="mt-5 pt-5 pb-5 mt-5 row justify-content-between d-flex">
+      <div className="mt-5 pt-5 pb-5 row justify-content-between d-flex">
         <div className="col-5">
           <img src={homeEscola} alt="imagem modalidades" />
         </div>
@@ -73,7 +73,7 @@ const TeachersPage = () => (
           </p>
         </div>
       </div>
-      <div className="mt-5 pt-5 pb-5 mt-5 row justify-content-between d-flex">
+      <div className="mt-5 pt-5 pb-5 row justify-content-between d-flex">
         <div className="col-6">
           <h2>Liliana Mota</h2>
           <h4 class="text-rose mb-5">danças latinas, danças de salão</h4>

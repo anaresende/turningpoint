@@ -4,10 +4,10 @@ const AboutPage = () => (
   <section className="flex-grow-1">
     <div className="container-xxl">
       <div className="pt-5 pb-5 mt-5 row">
-        <div className="col-6">
+        <div className="col-6 ">
           <h2 className="text-rose">a tua escola</h2>
           <h4 className="text-orange mb-5">pronto para dançar ?</h4>
-          <p>
+          <p className="pe-5">
             A Turning Point — Escola de Dança é um espaço em São João da
             Madeira, dedicado ao ensino livre de dança. Idealizada e criada por
             Ana Catarina Resende e Ana Filipa Gual, a escola oferece as
@@ -21,13 +21,7 @@ const AboutPage = () => (
             bem-vindos. Os alunos da Turning Point têm a possibilidade de fazer
             cursos certificados pela IDTA — International Dance Teacher's
             Association nas modalidades de Ballet Clássico e Modern Jazz, sendo
-            toda a equipa docente certificada pela mesma instituição. Um espaço
-            pensado para crianças e adultos, a escola Turning Point é o local
-            ideal para quem gosta de dançar, independentemente da idade e/ou
-            formação em dança, existindo várias aulas com diferentes níveis de
-            dificuldade, de forma a acomodar qualquer pessoa que queira
-            experimentar ou aprofundar o seu conhecimento em qualquer uma das
-            modalidades oferecidas.
+            toda a equipa docente certificada pela mesma instituição.
           </p>
         </div>
         <div className="col-6 d-flex align-items-center">

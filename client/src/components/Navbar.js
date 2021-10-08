@@ -37,7 +37,7 @@ function Navbar() {
               </li>
               <li>
                 <Link className="dropdown-item Navbar-nav-link" to="/gallery">
-                  galeria
+                  grupo de competição
                 </Link>
               </li>
               <li>
@@ -97,19 +97,19 @@ function Navbar() {
               <li>
                 <HashLink
                   className="dropdown-item Navbar-nav-link"
-                  to="/dance-styles#latinas"
+                  to="/dance-styles#pilates"
                   smooth
                 >
-                  latinas
+                  pilates clínico
                 </HashLink>
               </li>
               <li>
                 <HashLink
                   className="dropdown-item Navbar-nav-link"
-                  to="/dance-styles#pilates"
+                  to="/dance-styles#latinas"
                   smooth
                 >
-                  pilates clínico
+                  latinas
                 </HashLink>
               </li>
             </ul>

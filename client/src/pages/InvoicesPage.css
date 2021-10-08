@@ -1,0 +1,8 @@
+.Invoices {
+  flex-grow: 1;
+}
+
+.Invoices-item img {
+  height: 120px;
+  opacity: 0.7;
+}

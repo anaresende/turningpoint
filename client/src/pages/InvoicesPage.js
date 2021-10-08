@@ -1,6 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/auth.context";
 import axios from "axios";
+import { AuthContext } from "../context/auth.context";
+
+import imageDocumentPlaceholder from "../assets/images/document-placeholder.jpg";
+import "./InvoicesPage.css";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -38,26 +41,40 @@ const Invoices = (props) => {
   };
 
   return (
-    <div className="container">
-      <h1>
-        <h3>{user.username}, os seus últimos documentos</h3>
-        <img src={user.avatarUrl} alt="" width="60px" />
-      </h1>
-      <h3>Faturas</h3>
-      <div>
-        {documents.map(({ value, date, document_id }) => {
-          return (
-            <div key={document_id}>
-              {value} <br />
-              {date} <br />
-              <button onClick={() => handleDownloadDocument(document_id)}>
-                download
-              </button>
-            </div>
-          );
-        })}
+    <section className="Invoices">
+      <div className="container-xxl">
+        <h2 className="text-rose">as minhas faturas</h2>
+
+        <div className="row row-cols-auto mt-5">
+          {documents.map(({ value, date, document_id }) => {
+            console.log(documents);
+            return (
+              <div
+                className="Invoices-item col-sm-12 col-md-6 col-lg-4 d-flex pb-5"
+                key={document_id}
+              >
+                <div className="me-4">
+                  <img
+                    src={imageDocumentPlaceholder}
+                    alt="document placholder"
+                  />
+                </div>
+                <div className="info d-flex flex-column">
+                  <h5 className="text-orange mb-2">{date}</h5>
+                  <p>valor: {value}</p>
+                  <button
+                    className="button-secondary mt-auto mb-1"
+                    onClick={() => handleDownloadDocument(document_id)}
+                  >
+                    download
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
