@@ -1,5 +1,9 @@
-import homeEscola from "./../assets/images/home-escola.jpg";
 import "./TeachersPage.css";
+import Catarina from "./../assets/videos/catarina-resende.mp4";
+import Ana from "./../assets/videos/ana-gual.mp4";
+import Marcia from "./../assets/videos/marcia-teixeira.mp4";
+import Catia from "./../assets/videos/catia-caetano.mp4";
+import Liliana from "./../assets/videos/liliana-mota.mp4";
 
 const TeachersPage = () => (
   <section className="TeachersPage">
@@ -20,12 +24,30 @@ const TeachersPage = () => (
           </p>
         </div>
         <div className="col-5 ps-5">
-          <img src={homeEscola} alt="imagem escola" />
+          <div className="Teachers-video-wrapper">
+            <video
+              className="Teachers-video"
+              loop={true}
+              autoPlay={true}
+              muted={true}
+            >
+              <source src={Catarina} type="video/mp4" />
+            </video>
+          </div>
         </div>
       </div>
       <div className="mt-5 pt-5 pb-5 row justify-content-between d-flex">
         <div className="col-5">
-          <img src={homeEscola} alt="imagem modalidades" />
+          <div className="Teachers-video-wrapper">
+            <video
+              className="Teachers-video"
+              loop={true}
+              autoPlay={true}
+              muted={true}
+            >
+              <source src={Ana} type="video/mp4" />
+            </video>
+          </div>
         </div>
         <div className="col-6">
           <h2>Filipa Gual</h2>
@@ -54,12 +76,30 @@ const TeachersPage = () => (
           </p>
         </div>
         <div className="col-5 ps-5">
-          <img src={homeEscola} alt="imagem escola" />
+          <div className="Teachers-video-wrapper">
+            <video
+              className="Teachers-video"
+              loop={true}
+              autoPlay={true}
+              muted={true}
+            >
+              <source src={Marcia} type="video/mp4" />
+            </video>
+          </div>
         </div>
       </div>
       <div className="mt-5 pt-5 pb-5 row justify-content-between d-flex">
         <div className="col-5">
-          <img src={homeEscola} alt="imagem modalidades" />
+          <div className="Teachers-video-wrapper">
+            <video
+              className="Teachers-video"
+              loop={true}
+              autoPlay={true}
+              muted={true}
+            >
+              <source src={Catia} type="video/mp4" />
+            </video>
+          </div>
         </div>
         <div className="col-6">
           <h2>Cátia Caetano</h2>
@@ -86,7 +126,16 @@ const TeachersPage = () => (
           </p>
         </div>
         <div className="col-5 ps-5">
-          <img src={homeEscola} alt="imagem escola" />
+          <div className="Teachers-video-wrapper">
+            <video
+              className="Teachers-video"
+              loop={true}
+              autoPlay={true}
+              muted={true}
+            >
+              <source src={Liliana} type="video/mp4" />
+            </video>
+          </div>
         </div>
       </div>
     </div>

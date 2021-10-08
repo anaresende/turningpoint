@@ -5,3 +5,8 @@
 .TeachersPage h4 {
   font-weight: 600;
 }
+
+.Teachers-video {
+  width: 400px;
+  height: 100%;
+}
