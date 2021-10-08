@@ -15,6 +15,7 @@ import ConfirmEmailPage from "./pages/ConfirmEmailPage";
 import TeachersPage from "./pages/TeachersPage";
 import AboutPage from "./pages/AboutPage";
 import DanceStylesPage from "./pages/DanceStylesPage";
+import SchedulePage from "./pages/SchedulePage";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -23,6 +24,7 @@ import AnonRoute from "./components/AnonRoute";
 import Footer from "./components/Footer";
 
 import ScrollToTop from "./components/ScrollToTop";
+import Schedule from "./pages/SchedulePage";
 
 function App() {
   return (
@@ -38,7 +40,7 @@ function App() {
           <Route exact path="/contacts" component={() => <h1>Contactos</h1>} />
 
           <Route path="/dance-styles" component={DanceStylesPage} />
-          <Route exact path="/schedules" component={() => <h1>Horários</h1>} />
+          <Route exact path="/schedules" component={SchedulePage} />
           <Route
             exact
             path="/competition"

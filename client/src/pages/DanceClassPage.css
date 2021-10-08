@@ -1,3 +1,10 @@
 .DanceClass {
   flex-grow: 1;
 }
+
+.DanceClass img,
+.DanceClass audio,
+.DanceClass video {
+  max-width: 500px;
+  width: 100%;
+}

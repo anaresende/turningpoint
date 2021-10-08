@@ -1,0 +1,12 @@
+.Admin {
+  flex-grow: 1;
+}
+
+.Admin-hero,
+.Admin-item,
+.Admin img,
+.Admin audio,
+.Admin video {
+  max-width: 500px;
+  width: 100%;
+}

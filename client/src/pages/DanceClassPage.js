@@ -32,24 +32,24 @@ function DanceClass(props) {
   console.log(danceClassContent, danceClass);
   return (
     <section className="DanceClass">
-      <div className="container-xxl centered-container py-5">
+      <div className="container-xxl py-5">
         {danceClass && (
-          <h3>
+          <h2 className="text-rose">
             {danceClass.style} - {danceClass.level}
-          </h3>
+          </h2>
         )}
         {danceClassContent.length === 0 && (
-          <h5 className="mt-2">Sem conteúdo</h5>
+          <h5 className="mt-3">sem conteúdo</h5>
         )}
         {danceClassContent.map((media) => {
           return (
-            <div>
-              {media.title} <br />
+            <div className="my-5 py-2">
+              <h5 className="text-orange mb-3">{media.title}</h5>
               {media.fileType?.includes("audio") && (
                 <audio controls src={media.fileUrl}></audio>
               )}
               {media.fileType?.includes("image") && (
-                <img src={media.fileUrl} width="400px" alt={`${media.title}`} />
+                <img src={media.fileUrl} width="600px" alt={`${media.title}`} />
               )}
               {media.fileType?.includes("video") && (
                 <video src={media.fileUrl} controls width="400px"></video>
