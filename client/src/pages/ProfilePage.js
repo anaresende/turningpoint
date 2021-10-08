@@ -39,7 +39,7 @@ const Profile = (props) => {
               <h5>***********</h5>
             </div>
             <div className="Profile-information mt-3">
-              <p>Modalidades</p>
+              {user?.danceClass && <p>Modalidades</p>}
               {user?.danceClass?.map(({ _id, style, level }) => {
                 return (
                   <h5 key={_id}>

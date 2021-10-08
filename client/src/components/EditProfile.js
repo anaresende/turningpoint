@@ -138,7 +138,7 @@ function EditProfile() {
             {Object.keys(classes).map((style) => {
               const styles = classes[style];
 
-              const defaultValue = user.danceClass.find(
+              const defaultValue = user.danceClass?.find(
                 (item) => item.style === style
               );
 
