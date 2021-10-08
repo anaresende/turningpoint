@@ -36,7 +36,10 @@ function Navbar() {
                 </Link>
               </li>
               <li>
-                <Link className="dropdown-item Navbar-nav-link" to="/gallery">
+                <Link
+                  className="dropdown-item Navbar-nav-link"
+                  to="/competition"
+                >
                   grupo de competição
                 </Link>
               </li>

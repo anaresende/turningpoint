@@ -9,4 +9,15 @@
 .Footer a {
   text-decoration: none;
   color: black;
+  transition: color 0.3s ease-in-out;
+}
+
+.Footer a:hover {
+  text-decoration: none;
+  color: var(--color-rose);
+}
+
+.Footer .social-link {
+  font-size: 20px;
+  line-height: 20px;
 }

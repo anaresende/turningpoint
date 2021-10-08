@@ -16,6 +16,8 @@ import TeachersPage from "./pages/TeachersPage";
 import AboutPage from "./pages/AboutPage";
 import DanceStylesPage from "./pages/DanceStylesPage";
 import SchedulePage from "./pages/SchedulePage";
+import CompetitionGroupPage from "./pages/CompetitionGroupPage";
+import ContactsPage from "./pages/ContactsPage";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -24,7 +26,6 @@ import AnonRoute from "./components/AnonRoute";
 import Footer from "./components/Footer";
 
 import ScrollToTop from "./components/ScrollToTop";
-import Schedule from "./pages/SchedulePage";
 
 function App() {
   return (
@@ -37,19 +38,14 @@ function App() {
           <Route exact path="/about" component={AboutPage} />
           <Route exact path="/teachers" component={TeachersPage} />
           <Route exact path="/gallery" component={() => <h1>Galeria</h1>} />
-          <Route exact path="/contacts" component={() => <h1>Contactos</h1>} />
+          <Route exact path="/contacts" component={ContactsPage} />
 
           <Route path="/dance-styles" component={DanceStylesPage} />
           <Route exact path="/schedules" component={SchedulePage} />
-          <Route
-            exact
-            path="/competition"
-            component={() => <h1>Grupo de competição</h1>}
-          />
+          <Route exact path="/competition" component={CompetitionGroupPage} />
           <Route path="/confirm-email" component={ConfirmEmailPage} />
           <Route path="/auth/confirm/:confirmationCode" component={Welcome} />
 
-          {/* 👇 UPDATE THE EXISTING ROUTES 👇  */}
           <PrivateRoute exact path="/user" component={ProfilePage} />
           <PrivateRoute
             exact
@@ -59,11 +55,6 @@ function App() {
           <PrivateRoute path="/dance-class/:id" component={DanceClassPage} />
           <PrivateRoute exact routeAdmin path="/admin" component={AdminPage} />
           <PrivateRoute exact path="/user/my-goals" component={MyGoals} />
-          <PrivateRoute
-            exact
-            path="/user/my-practices"
-            component={() => <h1>my practices</h1>}
-          />
 
           {/* <AnonRoute exact path="/signup" component={SignupPage} /> */}
           <AnonRoute exact path="/login" component={LoginPage} />

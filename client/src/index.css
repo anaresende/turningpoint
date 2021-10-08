@@ -215,3 +215,13 @@ p.text-orange {
 .form-control:hover::-webkit-file-upload-button {
   background-color: var(--color-orange) !important;
 }
+
+.social-link {
+  font-size: 40px;
+  color: var(--color-orange);
+  transition: color 0.3s ease-in-out;
+}
+
+.social-link:hover {
+  color: var(--color-rose);
+}
