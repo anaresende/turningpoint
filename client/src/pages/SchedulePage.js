@@ -1,4 +1,4 @@
-import imageSchedule from "../assets/images/horarios-2021.png";
+import imageSchedule from "../assets/images/horarios-2022.png";
 
 function Schedule() {
   return (
