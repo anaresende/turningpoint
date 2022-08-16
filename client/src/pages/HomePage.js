@@ -50,16 +50,17 @@ function HomePage() {
             <div className="col-6">
               <h2 className="ps-5">modalidades</h2>
               <p className="ps-5">
-                A Turning Point — Escola de Dança é um espaço idealizado e
-                criado por Ana Catarina Resende e Ana Filipa Gual. A escola
-                dispõe de dois estúdios, com um ambiente moderno e descontraído
-                que reflete a missão Turning Point, oferecer uma formação de
-                qualidade em dança, num ambiente relaxado em que todos os alunos
-                se sintam bem-vindos.
+                Se gostas de dançar a Turning Point é a escola ideal para ti.
+                Temos vários estilos nos quais podes aprofundar e tua formação
+                em dança, permitindo que te tornes num melhor bailarino. Desde o
+                Ballet Clássico, Jazz, Contemporâneo e Commercial Dance,
+                passando pelas Danças Latinas e de Salão e até mesmo Pilates
+                Clínico, a nossa oferta formativa permite-te escolher o estilo
+                que mais gostas, independentemente da tua idade.
               </p>
             </div>
           </div>
-          <div className="mt-5 pt-5 pb-5 mt-5 row">
+          {/* <div className="mt-5 pt-5 pb-5 mt-5 row">
             <div className="col-6">
               <h2>equipa docente</h2>
               <p className="pe-5">
@@ -74,7 +75,7 @@ function HomePage() {
             <div className="col-6">
               <img src={homeProfessores} alt="imagem professoras" />
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
       <section>

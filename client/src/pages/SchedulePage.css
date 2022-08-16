@@ -2,7 +2,6 @@
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     column-gap: 10px;
-    margin-top: 30px;
 }
 
 .day-column {
@@ -19,6 +18,7 @@
     text-align: center;
     padding-bottom: 10px;
     background: white;
+    padding-top: 30px;
 }
 
 .hours {
@@ -32,4 +32,34 @@
     color: white;
     padding-bottom: 20px;
     font-size: 14px;
+}
+
+@media only screen and (max-width: 1200px) {
+    .dance-style {
+        font-size: 12px;
+    }
+
+    .hours {
+        font-size: 12px;
+    }
+}
+    
+@media only screen and (max-width: 1024px) {
+    .schedule-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dance-style {
+        font-size: 16px;
+    }
+
+    .hours {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .schedule-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }

@@ -22,7 +22,6 @@ const DanceStylesPage = () => (
               <TeacherProfile photo={Ana} name="Filipa Gual" />
               <TeacherProfile photo={Catarina} name="Ana Resende" />
               <TeacherProfile photo={Marcia} name="Márcia Teixeira" />
-              <TeacherProfile photo={Catia} name="Catia Caetano" />
             </div>
             <div className="col-6">
               <h4 className="text-rose mb-5">Ballet Clássico </h4>
