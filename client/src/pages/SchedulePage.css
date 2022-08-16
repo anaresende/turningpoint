@@ -1,0 +1,35 @@
+.schedule-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 10px;
+    margin-top: 30px;
+}
+
+.day-column {
+    background-color: #b27c6f;
+}
+
+.item-classes {
+    text-align: center;
+}
+
+.day-title {
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+    padding-bottom: 10px;
+    background: white;
+}
+
+.hours {
+    color: white;
+    font-weight: 700;
+    padding-top: 20px;
+    font-size: 14px;
+}
+
+.dance-style {
+    color: white;
+    padding-bottom: 20px;
+    font-size: 14px;
+}

@@ -97,23 +97,10 @@ const TeachersPage = () => (
               autoPlay={true}
               muted={true}
             >
-              <source src={Catia} type="video/mp4" />
+              <source src={Liliana} type="video/mp4" />
             </video>
           </div>
         </div>
-        <div className="col-6">
-          <h2>Cátia Caetano</h2>
-          <h4 class="text-rose mb-5">ballet clássico</h4>
-          <p>
-            A Turning Point — Escola de Dança é um espaço idealizado e criado
-            por Ana Catarina Resende e Ana Filipa Gual. A escola dispõe de dois
-            estúdios, com um ambiente moderno e descontraído que reflete a
-            missão Turning Point, oferecer uma formação de qualidade em dança,
-            num ambiente relaxado em que todos os alunos se sintam bem-vindos.
-          </p>
-        </div>
-      </div>
-      <div className="mt-5 pt-5 pb-5 row justify-content-between d-flex">
         <div className="col-6">
           <h2>Liliana Mota</h2>
           <h4 class="text-rose mb-5">danças latinas, danças de salão</h4>
@@ -124,18 +111,6 @@ const TeachersPage = () => (
             missão Turning Point, oferecer uma formação de qualidade em dança,
             num ambiente relaxado em que todos os alunos se sintam bem-vindos.
           </p>
-        </div>
-        <div className="col-5 ps-5">
-          <div className="Teachers-video-wrapper">
-            <video
-              className="Teachers-video"
-              loop={true}
-              autoPlay={true}
-              muted={true}
-            >
-              <source src={Liliana} type="video/mp4" />
-            </video>
-          </div>
         </div>
       </div>
     </div>
