@@ -4,12 +4,15 @@ function Footer() {
   return (
     <footer className="Footer container-xxl">
       <div className="row d-flex align-items-center">
-        <div className="col-6">
+        <div className="col-12 col-sm-6 d-none d-sm-block ">
           <p>Turning Point © copyright</p>
         </div>
-        <div className="col-6 d-flex justify-content-end">
-          <a className="email-link me-4" href="mailto:geral@turningpoint.dance">
-            geral@turningpoint.dance
+        <div className="col-12 col-sm-6 d-flex justify-content-end">
+          <a
+            className="email-link me-4"
+            href="mailto:geral.turningpoint@gmail.com"
+          >
+            geral.turningpoint@gmail.com
           </a>
           <a
             className="social-link me-4"

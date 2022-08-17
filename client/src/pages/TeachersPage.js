@@ -11,8 +11,8 @@ const TeachersPage = () => (
       <div className="mt-5 pt-3 pb-5 mt-5 row">
         <h1 className="text-orange">equipa docente</h1>
       </div>
-      <div className="mt-5 pt-3 row justify-content-between d-flex">
-        <div className="col-6">
+      <div className="mt-5 pt-3 row justify-content-between d-flex flex-column-reverse flex-lg-row">
+        <div className="col-12 col-lg-6" style={{ maxWidth: "600px" }}>
           <h2>Ana Resende</h2>
           <h4 class="text-rose mb-5">ballet clássico, commercial dance</h4>
           <p>
@@ -23,7 +23,7 @@ const TeachersPage = () => (
             num ambiente relaxado em que todos os alunos se sintam bem-vindos.
           </p>
         </div>
-        <div className="col-5 ps-5">
+        <div className="col-12 col-lg-5 ps-lg-5 mb-3">
           <div className="Teachers-video-wrapper">
             <video
               className="Teachers-video"
@@ -37,7 +37,7 @@ const TeachersPage = () => (
         </div>
       </div>
       <div className="mt-5 pt-5 pb-5 row justify-content-between d-flex">
-        <div className="col-5">
+        <div className="col-12 col-lg-5 mb-3">
           <div className="Teachers-video-wrapper">
             <video
               className="Teachers-video"
@@ -49,7 +49,7 @@ const TeachersPage = () => (
             </video>
           </div>
         </div>
-        <div className="col-6">
+        <div className="col-12 col-lg-6" style={{ maxWidth: "600px" }}>
           <h2>Filipa Gual</h2>
           <h4 class="text-rose mb-5">
             ballet clássico, contemporâneo, jazz, pilates clínico
@@ -63,8 +63,8 @@ const TeachersPage = () => (
           </p>
         </div>
       </div>
-      <div className="mt-5 pt-5 pb-5 row justify-content-between d-flex">
-        <div className="col-6">
+      <div className="mt-5 pt-5 pb-5 row justify-content-between d-flex flex-column-reverse flex-lg-row">
+        <div className="col-12 col-lg-6" style={{ maxWidth: "600px" }}>
           <h2>Márcia Teixeira</h2>
           <h4 class="text-rose mb-5">ballet clássico</h4>
           <p>
@@ -75,7 +75,7 @@ const TeachersPage = () => (
             num ambiente relaxado em que todos os alunos se sintam bem-vindos.
           </p>
         </div>
-        <div className="col-5 ps-5">
+        <div className="col-12 col-lg-5 ps-lg-5 mb-3">
           <div className="Teachers-video-wrapper">
             <video
               className="Teachers-video"
@@ -89,7 +89,7 @@ const TeachersPage = () => (
         </div>
       </div>
       <div className="mt-5 pt-5 pb-5 row justify-content-between d-flex">
-        <div className="col-5">
+        <div className="col-12 col-lg-5 mb-3">
           <div className="Teachers-video-wrapper">
             <video
               className="Teachers-video"
@@ -101,7 +101,7 @@ const TeachersPage = () => (
             </video>
           </div>
         </div>
-        <div className="col-6">
+        <div className="col-12 col-lg-6" style={{ maxWidth: "600px" }}>
           <h2>Liliana Mota</h2>
           <h4 class="text-rose mb-5">danças latinas, danças de salão</h4>
           <p>

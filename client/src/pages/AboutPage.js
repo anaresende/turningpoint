@@ -3,8 +3,8 @@ import homeEscola from "./../assets/images/home-escola.jpg";
 const AboutPage = () => (
   <section className="flex-grow-1">
     <div className="container-xxl">
-      <div className="pt-5 pb-5 mt-5 row">
-        <div className="col-6 ">
+      <div className="pt-5 pb-5 mt-lg-5 row flex-column-reverse flex-lg-row">
+        <div className="col-12 col-lg-6 ">
           <h2 className="text-rose">a tua escola</h2>
           <h4 className="text-orange mb-5">pronto para dançar ?</h4>
           <p className="pe-5">
@@ -24,8 +24,8 @@ const AboutPage = () => (
             toda a equipa docente certificada pela mesma instituição.
           </p>
         </div>
-        <div className="col-6 d-flex align-items-center">
-          <img src={homeEscola} alt="imagem escola" />
+        <div className="col-12 col-lg-6 d-flex align-items-center">
+          <img src={homeEscola} alt="imagem escola" className="mb-5 mb-lg-0" />
         </div>
       </div>
     </div>

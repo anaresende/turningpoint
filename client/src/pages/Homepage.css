@@ -46,5 +46,6 @@
 
 .Homepage-icon-right {
   width: 45px;
+  height: 45px;
   fill: var(--color-background);
 }

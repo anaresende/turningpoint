@@ -10,20 +10,20 @@ const DanceStylesPage = () => (
   <section className="Homepage-block">
     <div className="container-xxl">
       <div id="ballet" className="pt-header row">
-        <div className="col-6">
+        <div className="col-12 col-lg-6">
           <h2>Ballet Clássico</h2>
         </div>
         <div className="col-12">
           <img src={ballet} alt="imagem escola" />
         </div>
         <div className="pt-5 pb-5 mt-5 row">
-          <div className="col-12 mb-5 d-flex ">
-            <div className="col-6">
+          <div className="col-12 mb-5 row flex-column-reverse flex-lg-row">
+            <div className="col-12 col-lg-6">
               <TeacherProfile photo={Ana} name="Filipa Gual" />
               <TeacherProfile photo={Catarina} name="Ana Resende" />
               <TeacherProfile photo={Marcia} name="Márcia Teixeira" />
             </div>
-            <div className="col-6">
+            <div className="col-12 col-lg-6">
               <h4 className="text-rose mb-5">Ballet Clássico </h4>
               <p>
                 Ballet Clássico é o estilo de dança que pode ser considerado a
@@ -46,11 +46,11 @@ const DanceStylesPage = () => (
           <img src={ballet} alt="imagem escola" />
         </div>
         <div className="pt-5 pb-5 mt-5 row">
-          <div className="col-12 mb-5 d-flex ">
-            <div className="col-6">
+          <div className="col-12 mb-5 row flex-column-reverse flex-lg-row">
+            <div className="col-12 col-lg-6">
               <TeacherProfile photo={Ana} name="Filipa Gual" />
             </div>
-            <div className="col-6">
+            <div className="col-12 col-lg-6">
               <h4 className="text-rose mb-5">Dança Contemporânea</h4>
               <p>
                 A dança Contemporânea é a expressão do corpo e movimento,
@@ -72,11 +72,11 @@ const DanceStylesPage = () => (
           <img src={ballet} alt="imagem escola" />
         </div>
         <div className="pt-5 pb-5 mt-5 row">
-          <div className="col-12 mb-5 d-flex ">
-            <div className="col-6">
+          <div className="col-12 mb-5 row flex-column-reverse flex-lg-row">
+            <div className="col-12 col-lg-6">
               <TeacherProfile photo={Catarina} name="Ana Resende" />
             </div>
-            <div className="col-6">
+            <div className="col-12 col-lg-6">
               <h4 className="text-rose mb-5">Commercial Dance</h4>
               <p>
                 Commercial Dance é o estilo ideal para quem não consegue ouvir
@@ -97,11 +97,11 @@ const DanceStylesPage = () => (
           <img src={ballet} alt="imagem escola" />
         </div>
         <div className="pt-5 pb-5 mt-5 row">
-          <div className="col-12 mb-5 d-flex ">
-            <div className="col-6">
+          <div className="col-12 mb-5 row flex-column-reverse flex-lg-row">
+            <div className="col-12 col-lg-6">
               <TeacherProfile photo={Ana} name="Filipa Gual" />
             </div>
-            <div className="col-6">
+            <div className="col-12 col-lg-6">
               <h4 className="text-rose mb-5">Modern Jazz</h4>
               <p>
                 Modern Jazz é a fusão entre a dança contemporânea e o jazz e
@@ -122,11 +122,11 @@ const DanceStylesPage = () => (
           <img src={ballet} alt="imagem escola" />
         </div>
         <div className="pt-5 pb-5 mt-5 row">
-          <div className="col-12 mb-5 d-flex ">
-            <div className="col-6">
+          <div className="col-12 mb-5 row flex-column-reverse flex-lg-row">
+            <div className="col-12 col-lg-6">
               <TeacherProfile photo={Liliana} name="Liliana Mota" />
             </div>
-            <div className="col-6">
+            <div className="col-12 col-lg-6">
               <h4 className="text-rose mb-5">Danças Latinas</h4>
               <p>
                 As danças latinas são danças principalmente oriundas da América
@@ -147,11 +147,11 @@ const DanceStylesPage = () => (
           <img src={ballet} alt="imagem escola" />
         </div>
         <div className="pt-5 pb-5 mt-5 row">
-          <div className="col-12 mb-5 d-flex ">
-            <div className="col-6">
+          <div className="col-12 mb-5 row flex-column-reverse flex-lg-row">
+            <div className="col-12 col-lg-6">
               <TeacherProfile photo={Ana} name="Filipa Gual" />
             </div>
-            <div className="col-6">
+            <div className="col-12 col-lg-6">
               <h4 className="text-rose mb-5">Pilates Clínico</h4>
               <p>
                 Pilates Clínico consiste num conjunto de exercícios, adaptados

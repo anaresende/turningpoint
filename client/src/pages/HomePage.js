@@ -28,7 +28,7 @@ function HomePage() {
       <section className="Homepage-block">
         <div className="container-xxl">
           <div className="mt-5 pt-5 pb-5 mt-5 row">
-            <div className="col-6">
+            <div className="col-12 col-md-6">
               <h2>a escola</h2>
               <p className="pe-5">
                 A Turning Point — Escola de Dança é um espaço idealizado e
@@ -39,17 +39,25 @@ function HomePage() {
                 se sintam bem-vindos.
               </p>
             </div>
-            <div className="col-6">
-              <img src={homeEscola} alt="imagem escola" />
+            <div className="col-12 col-md-6">
+              <img
+                src={homeEscola}
+                alt="imagem escola"
+                className="mt-5 mt-md-0"
+              />
             </div>
           </div>
-          <div className="mt-5 pt-5 pb-5 mt-5 row">
-            <div className="col-6">
-              <img src={homeModalidades} alt="imagem modalidades" />
+          <div className="mt-5 pt-5 pb-5 mt-5 row flex-column-reverse flex-md-row">
+            <div className="col-12 col-md-6">
+              <img
+                src={homeModalidades}
+                alt="imagem modalidades"
+                className="mt-5 mt-md-0"
+              />
             </div>
-            <div className="col-6">
-              <h2 className="ps-5">modalidades</h2>
-              <p className="ps-5">
+            <div className="col-12 col-md-6">
+              <h2 className="ps-md-5 ps-0">modalidades</h2>
+              <p className="ps-md-5 ps-0">
                 Se gostas de dançar a Turning Point é a escola ideal para ti.
                 Temos vários estilos nos quais podes aprofundar e tua formação
                 em dança, permitindo que te tornes num melhor bailarino. Desde o
@@ -61,7 +69,7 @@ function HomePage() {
             </div>
           </div>
           {/* <div className="mt-5 pt-5 pb-5 mt-5 row">
-            <div className="col-6">
+            <div className="col-12 col-md-6">
               <h2>equipa docente</h2>
               <p className="pe-5">
                 A Turning Point — Escola de Dança é um espaço idealizado e
@@ -72,7 +80,7 @@ function HomePage() {
                 se sintam bem-vindos.
               </p>
             </div>
-            <div className="col-6">
+            <div className="col-12 col-md-6">
               <img src={homeProfessores} alt="imagem professoras" />
             </div>
           </div> */}
@@ -81,7 +89,7 @@ function HomePage() {
       <section>
         <div className="Homepage-callAction">
           <div className="container-xxl">
-            <a href="mailto:geral@turningpoint.dance">
+            <a href="mailto:geral.turningpoint@gmail.com">
               <h3>
                 vem fazer parte da nossa escola
                 <IconArrowRight className="ms-3 Homepage-icon-right" />
