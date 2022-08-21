@@ -12,8 +12,8 @@ const ContactsPage = () => (
         <p>Rua Combatentes da grande Guerra, nº 93</p>
       </div>
       <div className="mb-2">
-        <a className="styled-link" href="mailto:geral@turningpoint.dance">
-          geral@turningpoint.dance
+        <a className="styled-link" href="mailto:geral.turningpoint@gmail.com">
+          geral.turningpoint@gmail.com
         </a>
       </div>
       <div className="mb-2">
