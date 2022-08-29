@@ -55,11 +55,14 @@ const TeachersPage = () => (
             ballet clássico, contemporâneo, jazz, pilates clínico
           </h4>
           <p>
-            A Turning Point — Escola de Dança é um espaço idealizado e criado
-            por Ana Catarina Resende e Ana Filipa Gual. A escola dispõe de dois
-            estúdios, com um ambiente moderno e descontraído que reflete a
-            missão Turning Point, oferecer uma formação de qualidade em dança,
-            num ambiente relaxado em que todos os alunos se sintam bem-vindos.
+            Professora de dança, bailarina e fisioterapeuta. Estudou ballet
+            desde os 5 anos de idade e completou o seu exame de avançado 2 pela
+            ISTD em 2011. Completou o curso de professora pela IDTA em 2019 e já
+            deu aulas em várias escolas desde 2014. Ao longo do tempo foi
+            fazendo várias formações em contemporâneo e jazz. É licenciada em
+            fisioterapia pela universidade de aveiro e tirou várias formações na
+            área de neurologia pediátrica e musculo esquelética. Tem o curso
+            certificado de pilates clínico.
           </p>
         </div>
       </div>

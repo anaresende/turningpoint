@@ -31,10 +31,6 @@ function Schedule() {
           </div>
           <div className="item-classes">
             <p className="hours">20h00 - 21h00</p>
-            <p className="dance-style">Pilates Clínico</p>
-          </div>
-          <div className="item-classes">
-            <p className="hours">20h00 - 21h00</p>
             <p className="dance-style">Contemporâneo Adultos</p>
           </div>
         </div>
@@ -127,6 +123,10 @@ function Schedule() {
           <div className="item-classes">
             <p className="hours">20h00 - 21h00</p>
             <p className="dance-style">Pilates Clínico</p>
+          </div>
+          <div className="item-classes">
+            <p className="hours">20h00 - 21h00</p>
+            <p className="dance-style">Danças de Salão</p>
           </div>
         </div>
         <div className="day-column">
